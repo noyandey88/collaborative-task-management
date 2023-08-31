@@ -35,7 +35,6 @@ export default function AuthProvider({ children }) {
 
   const logoutUser = () => {
     setLoading(true);
-    // localStorage.removeItem('joldikino-token');
     return signOut(auth);
   };
 
