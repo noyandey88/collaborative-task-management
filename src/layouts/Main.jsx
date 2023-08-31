@@ -6,7 +6,9 @@ export default function Main() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="container mx-auto px-2">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

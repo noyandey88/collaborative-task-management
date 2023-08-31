@@ -8,4 +8,8 @@
   :root {
     --font-inter: "Inter", sans-serif;
   }
+
+  .button-press {
+    @apply active:translate-y-[0.075rem];
+  }
 }
