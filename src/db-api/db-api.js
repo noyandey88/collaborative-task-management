@@ -5,7 +5,8 @@ import { getDataFromLocalStorage, makeRandomId } from '../lib/utils';
 export const saveUserDataToDb = (username, email, bio) => {
   const userData = [];
   const uniqueId = makeRandomId(6);
-  const userInfo = getDataFromLocalStorage('user-info');
+  const userInfo = getDataFromLocalStorage('user-info') || [];
+
   if (!userInfo) {
     userData.push({
       id: uniqueId,
@@ -25,5 +26,32 @@ export const saveUserDataToDb = (username, email, bio) => {
       },
     );
     localStorage.setItem('user-info', JSON.stringify(userData));
+  }
+};
+
+export const saveTeamDataToDB = (name, memberData, userEmail, username) => {
+  const teamData = [];
+  const uniqueId = makeRandomId(6);
+  const teamInfo = getDataFromLocalStorage('team-info') || [];
+
+  if (!teamInfo) {
+    teamData.push({
+      id: uniqueId,
+      name,
+      members: [{ name: username, email: userEmail }, ...memberData],
+      teamCreator: userEmail,
+    });
+    localStorage.setItem('team-info', JSON.stringify(teamData));
+  } else {
+    teamData.push(
+      ...teamInfo,
+      {
+        id: uniqueId,
+        name,
+        members: [{ name: username, email: userEmail }, ...memberData],
+        teamCreator: userEmail,
+      },
+    );
+    localStorage.setItem('user-info', JSON.stringify(teamData));
   }
 };

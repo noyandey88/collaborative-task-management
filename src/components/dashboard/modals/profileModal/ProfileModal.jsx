@@ -9,7 +9,7 @@ import Button from '../../../../ui/button/Button';
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { dbUserInfo } = useContext(AuthContext);
+  const { loggedInUserInfo } = useContext(AuthContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -72,21 +72,21 @@ export default function ProfileModal() {
                       <label htmlFor="username" className="block text-xs font-medium text-gray-700">
                         Username
                       </label>
-                      <input type="email" id="username" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={dbUserInfo?.username} disabled />
+                      <input type="email" id="username" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={loggedInUserInfo?.username} disabled />
                     </div>
                     {/* username */}
                     <div>
                       <label htmlFor="email" className="block text-xs font-medium text-gray-700">
                         Email
                       </label>
-                      <input type="email" id="email" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={dbUserInfo?.email} disabled />
+                      <input type="email" id="email" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={loggedInUserInfo?.email} disabled />
                     </div>
                     {/* bio */}
                     <div>
                       <label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700">
                         Bio
                       </label>
-                      <textarea id="OrderNotes" className="mt-1 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm" rows={2} placeholder="Enter any additional order notes..." defaultValue={dbUserInfo?.bio} disabled />
+                      <textarea id="OrderNotes" className="mt-1 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm" rows={2} placeholder="Enter any additional order notes..." defaultValue={loggedInUserInfo?.bio} disabled />
                     </div>
                   </section>
                   <div className="mt-4">

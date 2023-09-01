@@ -34,8 +34,8 @@ export const makeRandomId = (range) => {
 };
 
 // get data from localStorage
-export const getDataFromLocalStorage = () => {
-  const userInfo = localStorage.getItem();
+export const getDataFromLocalStorage = (key) => {
+  const userInfo = localStorage.getItem(key);
   const userInfoParsed = JSON.parse(userInfo);
   return userInfoParsed;
 };

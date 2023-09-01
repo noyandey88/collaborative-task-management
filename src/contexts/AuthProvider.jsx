@@ -22,7 +22,8 @@ const googleProvider = new GoogleAuthProvider();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [dbUserInfo, setDbUserInfo] = useState({});
+  const [loggedInUserInfo, setLoggedInUserInfo] = useState({});
+  const [dbUsers, setDbUsers] = useState([]);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -62,7 +63,13 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
     const currentUserData = parsedUserData.find((userData) => userData.email === user?.email);
-    setDbUserInfo(currentUserData);
+    setLoggedInUserInfo(currentUserData);
+  }, [user]);
+
+  // get all users
+  useEffect(() => {
+    const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
+    setDbUsers(parsedUserData);
   }, [user]);
 
   const authInfo = useMemo(() => ({
@@ -74,8 +81,9 @@ export default function AuthProvider({ children }) {
     logoutUser,
     updateUserProfile,
     googleLogin,
-    dbUserInfo,
-  }), [user, loading, dbUserInfo]);
+    loggedInUserInfo,
+    dbUsers,
+  }), [user, loading, loggedInUserInfo, dbUsers]);
 
   return (
     <AuthContext.Provider value={authInfo}>

@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import AsyncSelect from 'react-select/async';
+import { AuthContext } from '../../../../contexts/AuthProvider';
 import Button from '../../../../ui/button/Button';
 
 export default function TeamModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const { dbUsers } = useContext(AuthContext);
+  const [members, setMembers] = useState([]);
 
   function closeModal() {
     setIsOpen(false);
@@ -15,14 +18,26 @@ export default function TeamModal() {
     setIsOpen(true);
   }
 
-  // working of react select
-  const filterColors = (inputValue) => colourOptions.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+  // create a new array from db user data
+  const formattedUserNames = dbUsers
+    ? dbUsers.map((userInfo) => ({
+      value: userInfo.username.toLowerCase(),
+      label: userInfo.username,
+    })) : [];
+
+  // working team member selection
+  const filterNames = (inputValue) => formattedUserNames.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
 
   const promiseOptions = (inputValue) => new Promise((resolve) => {
     setTimeout(() => {
-      resolve(filterColors(inputValue));
+      resolve(filterNames(inputValue));
     }, 1000);
   });
+
+  // get values from react select
+  const handleChange = (value) => {
+    setMembers(value);
+  };
 
   return (
     <>
@@ -57,7 +72,7 @@ export default function TeamModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all overflow-y-scroll hide-scrollbar">
                   {/* modal title */}
                   <Dialog.Title
                     as="h3"
@@ -78,13 +93,15 @@ export default function TeamModal() {
                       {/* select team */}
                       <div>
                         <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
-                          Select a Team
+                          Select Members
                         </label>
                         <AsyncSelect
                           isMulti
                           cacheOptions
                           defaultOptions
                           loadOptions={promiseOptions}
+                          onChange={handleChange}
+                          className="absolute z-30"
                         />
                       </div>
                     </form>
