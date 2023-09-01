@@ -1,3 +1,5 @@
+import Button from '../../ui/button/Button';
+
 export default function Footer() {
   return (
     <footer className="bg-primary">
@@ -34,9 +36,10 @@ export default function Footer() {
                   <label htmlFor="hero-input" className="sr-only">Search</label>
                   <input type="text" id="hero-input" name="hero-input" className="py-3 px-4 block w-full border-transparent shadow-sm rounded-md focus:z-10 bg-secondary focus:border-primary focus:ring-blue-500" placeholder="Enter your email" />
                 </div>
-                <a className="w-full sm:w-auto whitespace-nowrap inline-flex justify-center items-center gap-x-3 text-center bg-primary hover:bg-secondary hover:text-primary border border-transparent text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4" href="/">
+                {/* <a className="w-full sm:w-auto whitespace-nowrap inline-flex justify-center items-center gap-x-3 text-center bg-primary hover:bg-secondary hover:text-primary border border-transparent text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4" href="/">
                   Subscribe
-                </a>
+                </a> */}
+                <Button className="py-3" type="button">Subscribe</Button>
               </div>
               <p className="mt-3 text-sm text-secondary">
                 Up to date with our new features.
