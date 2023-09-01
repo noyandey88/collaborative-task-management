@@ -15,11 +15,10 @@ export default function DashboardHome() {
           <br />
           {greeting}
           {', '}
-          {user?.displayName}
+          <span className="text-primary font-bold">{user?.displayName}</span>
         </h2>
       </div>
       {/* status */}
-      {/* Announcement Banner */}
       <div className="flex justify-center">
         <div className="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-sm text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300 font-semibold">
           0 Task available
