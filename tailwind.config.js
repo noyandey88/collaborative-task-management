@@ -10,6 +10,7 @@ export default {
       colors: {
         primary: '#147fa6',
         secondary: '#d2f4fb',
+        dark: '#176787',
       },
       fontFamily: {
         inter: 'var(--font-inter); ',
