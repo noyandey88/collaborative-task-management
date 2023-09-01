@@ -1,3 +1,4 @@
+import { ArrowUturnLeftIcon } from '@heroicons/react/20/solid';
 import { Link, Outlet } from 'react-router-dom';
 
 export default function Dashboard() {
@@ -360,6 +361,12 @@ export default function Dashboard() {
                   </li>
                 </ul>
               </details>
+            </li>
+            <li>
+              <Link to="/" className="flex gap-x-2 items-center mt-10 justify-between rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-secondary hover:text-primary">
+                <span>Back to Homepage</span>
+                <ArrowUturnLeftIcon className="w-4 h-4" />
+              </Link>
             </li>
           </ul>
         </nav>
