@@ -9,8 +9,8 @@ export default function Hero() {
           <a className="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300 font-semibold" href="/">
             Explore the Capital Product
             <span className="flex items-center gap-x-1">
-              <span className="border-l border-gray-200 text-blue-600 pl-2 dark:text-blue-500">Explore</span>
-              <svg className="w-2.5 h-2.5 text-blue-600" width={16} height={16} viewBox="0 0 16 16" fill="none">
+              <span className="border-l border-gray-200 text-primary pl-2">Explore</span>
+              <svg className="w-2.5 h-2.5 text-primary" width={16} height={16} viewBox="0 0 16 16" fill="none">
                 <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </span>
@@ -23,7 +23,9 @@ export default function Hero() {
             Elevate Team Success
             {' '}
             <br />
-            Perfect Task Management
+            Perfect
+            {' '}
+            <span className="text-primary">Task Management</span>
           </h1>
         </div>
         {/* End Title */}
@@ -34,7 +36,7 @@ export default function Hero() {
         </div>
         {/* Buttons */}
         <div className="mt-8 grid gap-3 w-full sm:inline-flex sm:justify-center">
-          <Button className="flex gap-1 justify-center">
+          <Button className="flex gap-1 justify-center" type="button">
             Get Started
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
