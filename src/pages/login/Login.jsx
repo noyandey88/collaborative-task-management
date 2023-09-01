@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import Button from '../../ui/button/Button';
 
@@ -11,8 +11,6 @@ export default function Login() {
   } = useContext(AuthContext);
   const { register, formState: { errors }, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location?.state?.from?.pathname || '/';
 
   const handleLoginUser = (data) => {
     const { email } = data;
@@ -23,7 +21,7 @@ export default function Login() {
         console.log(user);
         toast.success('Login Successful');
         setLoading(false);
-        navigate(from, { replace: true });
+        navigate('/dashboard');
       })
       .catch((error) => {
         console.error(error);
