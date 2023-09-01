@@ -1,20 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
 import {
-  Fragment, useContext, useEffect, useState,
+  Fragment, useContext,
+  useState,
 } from 'react';
 import { AuthContext } from '../../../../contexts/AuthProvider';
+import Button from '../../../../ui/button/Button';
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
-  const { user } = useContext(AuthContext);
-
-  useEffect(() => {
-    const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
-    const currentUserData = parsedUserData.find((userData) => userData.email === user?.email);
-    setUserInfo(currentUserData);
-  }, [user]);
+  const { dbUserInfo } = useContext(AuthContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -77,31 +72,31 @@ export default function ProfileModal() {
                       <label htmlFor="username" className="block text-xs font-medium text-gray-700">
                         Username
                       </label>
-                      <input type="email" id="username" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={userInfo?.username} disabled />
+                      <input type="email" id="username" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={dbUserInfo?.username} disabled />
                     </div>
                     {/* username */}
                     <div>
                       <label htmlFor="email" className="block text-xs font-medium text-gray-700">
                         Email
                       </label>
-                      <input type="email" id="email" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={userInfo?.email} disabled />
+                      <input type="email" id="email" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={dbUserInfo?.email} disabled />
                     </div>
                     {/* bio */}
                     <div>
                       <label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700">
                         Bio
                       </label>
-                      <textarea id="OrderNotes" className="mt-1 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm" rows={2} placeholder="Enter any additional order notes..." defaultValue={userInfo?.bio} disabled />
+                      <textarea id="OrderNotes" className="mt-1 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm" rows={2} placeholder="Enter any additional order notes..." defaultValue={dbUserInfo?.bio} disabled />
                     </div>
                   </section>
                   <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    <Button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       Close
-                    </button>
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
