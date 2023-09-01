@@ -3,7 +3,7 @@ import Button from '../../ui/button/Button';
 export default function Hero() {
   return (
     <div className="relative overflow-hidden before:absolute before:top-0 before:left-1/2 before:bg-[url('../svg/component/squared-bg-element.svg')] before:bg-no-repeat before:bg-top before:w-full before:h-full before:-z-[1] before:transform before:-translate-x-1/2">
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
+      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10 md:pb-24">
         {/* Announcement Banner */}
         <div className="flex justify-center">
           <a className="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300 font-semibold" href="/">
