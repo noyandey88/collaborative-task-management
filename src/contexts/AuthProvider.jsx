@@ -13,7 +13,7 @@ import {
 } from 'react';
 import app from '../firebase/firebase.config';
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext();
 
 // firebase auth
 const auth = getAuth(app);

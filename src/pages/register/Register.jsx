@@ -1,8 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 import Button from '../../ui/button/Button';
 
 export default function Register() {
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const {
+    createUser, updateUserProfile, loading, setLoading,
+  } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleRegisterUser = (data) => {
+    const { username } = data;
+    const image = data.image[0];
+    const { email } = data;
+    const { password } = data;
+    const formData = new FormData();
+    formData.append('image', image);
+    // imgbb file upload url
+    const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
+    fetch(url, { method: 'POST', body: formData })
+      .then((res) => res.json())
+      .then((photoData) => {
+        createUser(email, password)
+          .then((result) => {
+            setLoading(true);
+            const { user } = result;
+            updateUserProfile(username, photoData.data.url)
+              .then(() => {
+                setLoading(false);
+                navigate('/');
+                toast.success('Register user successfully');
+              }).catch((err) => {
+                console.error(err);
+                toast.error(err.message);
+              });
+            console.log(user);
+          })
+          .catch((err) => {
+            console.error(err);
+            setLoading(false);
+            toast.error(err.message);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -12,9 +59,8 @@ export default function Register() {
           to your account
         </h2>
       </div>
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit(handleRegisterUser)} className="space-y-4">
           {/* username */}
           <div>
             <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
@@ -26,9 +72,12 @@ export default function Register() {
                 name="username"
                 type="text"
                 autoComplete="username"
-                required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark sm:text-sm sm:leading-6"
+                {...register('username', {
+                  required: 'Username is required',
+                })}
               />
+              {errors.username && <p className="mt-1 text-red-500 font-semibold">{errors.username?.message}</p>}
             </div>
           </div>
           {/* user profile photo */}
@@ -40,9 +89,13 @@ export default function Register() {
               <input
                 id="profile__photo"
                 type="file"
-                className="block w-full text-sm rounded-md text-slate-500 file:mr-4 file:py-2 file:px-4 border-2 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-secondary hover:file:bg-dark"
+                className="block w-full text-sm rounded-md text-slate-500 file:mr-4 file:py-2 file:px-4 border-2 file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-secondary focus:ring-dark hover:file:bg-dark"
                 accept="image/*"
+                {...register('image', {
+                  required: 'Profile photo is required',
+                })}
               />
+              {errors.image && <p className="mt-1 text-red-500 font-semibold">{errors.image?.message}</p>}
             </div>
           </div>
           {/* email */}
@@ -56,9 +109,12 @@ export default function Register() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark sm:text-sm sm:leading-6"
+                {...register('email', {
+                  required: 'Email is required',
+                })}
               />
+              {errors.email && <p className="mt-1 text-red-500 font-semibold">{errors.email?.message}</p>}
             </div>
           </div>
           {/* password */}
@@ -74,9 +130,13 @@ export default function Register() {
                 name="password"
                 type="password"
                 autoComplete="current-password"
-                required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark sm:text-sm sm:leading-6"
+                {...register('password', {
+                  required: 'Password is Required',
+                  minLength: { value: 6, message: 'Password must be 6 characters or longer' },
+                })}
               />
+              {errors.password && <p className="mt-1 text-red-500 font-semibold">{errors.password?.message}</p>}
             </div>
           </div>
           {/* submit button */}
@@ -84,8 +144,20 @@ export default function Register() {
             <Button
               type="submit"
               className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              disabled={loading}
             >
-              Sign in
+              {
+                !loading
+                  ? 'Register'
+                  : (
+                    <span className="flex items-center justify-center space-x-2 py-2">
+                      <span className="w-2 h-2 rounded-full animate-pulse bg-secondary" />
+                      <span className="w-2 h-2 rounded-full animate-pulse bg-secondary" />
+                      <span className="w-2 h-2 rounded-full animate-pulse bg-secondary" />
+                      <span className="w-2 h-2 rounded-full animate-pulse bg-secondary" />
+                    </span>
+                  )
+              }
             </Button>
           </div>
         </form>
