@@ -10,6 +10,7 @@ import Home from '../../pages/home/Home';
 import Login from '../../pages/login/Login';
 import NotFound from '../../pages/notFound/NotFound';
 import Register from '../../pages/register/Register';
+import PrivateRoute from '../privateRoute/PrivateRoute';
 
 export const router = createBrowserRouter([
   {
@@ -38,19 +39,35 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/dashboard',
-        element: <Summary />,
+        element: (
+          <PrivateRoute>
+            <Summary />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/my-tasks',
-        element: <MyTasks />,
+        element: (
+          <PrivateRoute>
+            <MyTasks />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/projects',
-        element: <Projects />,
+        element: (
+          <PrivateRoute>
+            <Projects />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/teams',
-        element: <Teams />,
+        element: (
+          <PrivateRoute>
+            <Teams />
+          </PrivateRoute>
+        ),
       },
     ],
   },

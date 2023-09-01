@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import Button from '../../ui/button/Button';
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="relative overflow-hidden before:absolute before:top-0 before:left-1/2 before:bg-[url('../svg/component/squared-bg-element.svg')] before:bg-no-repeat before:bg-top before:w-full before:h-full before:-z-[1] before:transform before:-translate-x-1/2">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10 md:pb-24">
@@ -36,7 +38,7 @@ export default function Hero() {
         </div>
         {/* Buttons */}
         <div className="mt-8 grid gap-3 w-full sm:inline-flex sm:justify-center">
-          <Button className="flex gap-1 justify-center" type="button">
+          <Button onClick={() => navigate('/dashboard')} className="flex gap-1 justify-center" type="button">
             Get Started
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
