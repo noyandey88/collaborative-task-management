@@ -2,9 +2,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Dashboard from '../../layouts/Dashboard';
 import Main from '../../layouts/Main';
+import DashboardHome from '../../pages/daashboard/dashbaordHome/DashboardHome';
 import MyTasks from '../../pages/daashboard/myTasks/MyTasks';
 import Projects from '../../pages/daashboard/projects/Projects';
-import Summary from '../../pages/daashboard/summary/Summary';
 import Teams from '../../pages/daashboard/teams/Teams';
 import Home from '../../pages/home/Home';
 import Login from '../../pages/login/Login';
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
         path: '/dashboard',
         element: (
           <PrivateRoute>
-            <Summary />
+            <DashboardHome />
           </PrivateRoute>
         ),
       },
