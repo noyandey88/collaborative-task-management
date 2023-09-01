@@ -5,7 +5,7 @@ export default function Footer() {
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
           <div className="col-span-full lg:col-span-1">
-            <a className="flex-none text-xl font-semibold text-secondary" href="/" aria-label="Brand">Task Fusion</a>
+            <a className="flex-none text-xl font-semibold text-secondary uppercase" href="/" aria-label="Brand">Task Fusion</a>
           </div>
           {/* End Col */}
           <div className="col-span-1">
