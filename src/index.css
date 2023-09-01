@@ -13,3 +13,12 @@
     @apply active:translate-y-[0.075rem];
   }
 }
+
+/* custom styles */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0.5em; /* Adjust this value to control scrollbar width */
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Adjust this value to set the scrollbar thumb color */
+}
