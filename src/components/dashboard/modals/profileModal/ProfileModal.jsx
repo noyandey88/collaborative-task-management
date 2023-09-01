@@ -1,9 +1,20 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import {
+  Fragment, useContext, useEffect, useState,
+} from 'react';
+import { AuthContext } from '../../../../contexts/AuthProvider';
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
+    const currentUserData = parsedUserData.find((userData) => userData.email === user?.email);
+    setUserInfo(currentUserData);
+  }, [user]);
 
   function closeModal() {
     setIsOpen(false);
@@ -49,27 +60,47 @@ export default function ProfileModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  {/* modal title */}
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    <span className="text-primary">Profile</span>
+                    {' '}
+                    Information
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
-                  </div>
-
+                  {/* modal contents */}
+                  <section className="mt-2 space-y-1">
+                    {/* username */}
+                    <div>
+                      <label htmlFor="username" className="block text-xs font-medium text-gray-700">
+                        Username
+                      </label>
+                      <input type="email" id="username" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={userInfo?.username} disabled />
+                    </div>
+                    {/* username */}
+                    <div>
+                      <label htmlFor="email" className="block text-xs font-medium text-gray-700">
+                        Email
+                      </label>
+                      <input type="email" id="email" placeholder="john@rhcp.com" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm" defaultValue={userInfo?.email} disabled />
+                    </div>
+                    {/* bio */}
+                    <div>
+                      <label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700">
+                        Bio
+                      </label>
+                      <textarea id="OrderNotes" className="mt-1 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm" rows={2} placeholder="Enter any additional order notes..." defaultValue={userInfo?.bio} disabled />
+                    </div>
+                  </section>
                   <div className="mt-4">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Got it, thanks!
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>

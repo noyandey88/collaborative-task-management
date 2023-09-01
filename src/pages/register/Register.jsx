@@ -53,6 +53,7 @@ export default function Register() {
       })
       .catch((err) => {
         console.error(err);
+        toast.error(err.message);
       });
   };
 
