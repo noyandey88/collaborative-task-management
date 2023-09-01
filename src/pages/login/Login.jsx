@@ -17,14 +17,11 @@ export default function Login() {
     const { password } = data;
     loginUser(email, password)
       .then((result) => {
-        const { user } = result;
-        console.log(user);
         toast.success('Login Successful');
         setLoading(false);
         navigate('/dashboard');
       })
       .catch((error) => {
-        console.error(error);
         toast.error(error.message);
         setLoading(false);
       });

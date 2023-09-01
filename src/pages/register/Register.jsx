@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import { saveUserDataToDb } from '../../db-api/db-api';
 import Button from '../../ui/button/Button';
 
 export default function Register() {
@@ -17,6 +18,7 @@ export default function Register() {
     const image = data.image[0];
     const { email } = data;
     const { password } = data;
+    const { bio } = data;
     const formData = new FormData();
     formData.append('image', image);
     // imgbb file upload url
@@ -24,13 +26,17 @@ export default function Register() {
     fetch(url, { method: 'POST', body: formData })
       .then((res) => res.json())
       .then((photoData) => {
+        // create a new user at firebase
         createUser(email, password)
           .then((result) => {
             setLoading(true);
             const { user } = result;
+            // update user profile to firebase
             updateUserProfile(username, photoData.data.url)
               .then(() => {
                 setLoading(false);
+                // save to localStorage
+                saveUserDataToDb(username, email, bio);
                 navigate('/');
                 toast.success('Register user successfully');
               }).catch((err) => {
@@ -79,6 +85,22 @@ export default function Register() {
               />
               {errors.username && <p className="mt-1 text-red-500 font-semibold">{errors.username?.message}</p>}
             </div>
+          </div>
+          {/* bio */}
+          <div>
+            <label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700">
+              Bio
+            </label>
+            <textarea
+              id="OrderNotes"
+              className="mt-2 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm"
+              rows={2}
+              placeholder="Enter any additional order notes..."
+              {...register('bio', {
+                required: 'Bio is required',
+              })}
+            />
+            {errors.bio && <p className="mt-1 text-red-500 font-semibold">{errors.bio?.message}</p>}
           </div>
           {/* user profile photo */}
           <div>

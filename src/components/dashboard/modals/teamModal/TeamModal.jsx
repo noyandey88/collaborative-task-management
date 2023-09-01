@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import AsyncSelect from 'react-select/async';
+import Button from '../../../../ui/button/Button';
 
 export default function TeamModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +14,15 @@ export default function TeamModal() {
   function openModal() {
     setIsOpen(true);
   }
+
+  // working of react select
+  const filterColors = (inputValue) => colourOptions.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+
+  const promiseOptions = (inputValue) => new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(filterColors(inputValue));
+    }, 1000);
+  });
 
   return (
     <>
@@ -46,28 +57,46 @@ export default function TeamModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  {/* modal title */}
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    Create a Team
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
-                  </div>
-
+                  {/* modal contents */}
+                  <section className="mt-2">
+                    <form className="space-y-2">
+                      {/* team name */}
+                      <div>
+                        <label htmlFor="project__name" className="block text-xs font-medium text-gray-700">
+                          Team Name
+                        </label>
+                        <input type="text" id="project__name" placeholder="Ex: task-management" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary" />
+                      </div>
+                      {/* select team */}
+                      <div>
+                        <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
+                          Select a Team
+                        </label>
+                        <AsyncSelect
+                          isMulti
+                          cacheOptions
+                          defaultOptions
+                          loadOptions={promiseOptions}
+                        />
+                      </div>
+                    </form>
+                  </section>
                   <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    <Button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Got it, thanks!
-                    </button>
+                      Create
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
