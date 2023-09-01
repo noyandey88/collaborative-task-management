@@ -1,14 +1,16 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Button from '../../ui/button/Button';
+import Loading from '../../ui/loading/Loading';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Dashboard', href: '/dashboard', current: true },
+  { name: 'Organized', href: '/', current: false },
+  { name: 'Trial', href: '/', current: false },
 ];
 
 function classNames(...classes) {
@@ -16,7 +18,28 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-  const { user } = useContext(AuthContext);
+  const {
+    user, logoutUser, loading, setLoading,
+  } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  // logout the existing user
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => {
+        setLoading(false);
+        toast.success('Logout Successful');
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.message);
+      });
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Disclosure as="nav" className="bg-primary">
@@ -42,19 +65,37 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
-                          'rounded-md px-3 py-2 text-sm font-medium',
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {
+                      !user?.uid
+                        ? navigation.filter((item) => item.name !== 'Dashboard')
+                          .map((item) => (
+                            <Link
+                              key={item.name}
+                              to={item.href}
+                              className={classNames(
+                                item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
+                                'rounded-md px-3 py-2 text-sm font-medium',
+                              )}
+                              aria-current={item.current ? 'page' : undefined}
+                            >
+                              {item.name}
+                            </Link>
+                          )) : (
+                          navigation.map((item) => (
+                            <a
+                              key={item.name}
+                              href={item.href}
+                              className={classNames(
+                                item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
+                                'rounded-md px-3 py-2 text-sm font-medium',
+                              )}
+                              aria-current={item.current ? 'page' : undefined}
+                            >
+                              {item.name}
+                            </a>
+                          ))
+                        )
+                    }
                   </div>
                 </div>
               </div>
@@ -63,15 +104,22 @@ export default function Navbar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full object-cover"
-                        src={user?.photoURL}
-                        alt="profile__photo"
-                      />
-                    </Menu.Button>
+                    {
+                      user?.uid
+                        ? (
+                          <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span className="absolute -inset-1.5" />
+                            <span className="sr-only">Open user menu</span>
+                            <img
+                              className="h-8 w-8 rounded-full object-cover"
+                              src={user?.photoURL}
+                              alt="profile__photo"
+                            />
+                          </Menu.Button>
+                        ) : (
+                          <Button onClick={() => navigate('/login')} className="bg-secondary text-primary">Login</Button>
+                        )
+                    }
                   </div>
                   <Transition
                     as={Fragment}
@@ -95,7 +143,7 @@ export default function Navbar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <button type="button" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 w-full text-left')}>Logout</button>
+                          <button onClick={handleLogout} type="button" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 w-full text-left')}>Logout</button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
