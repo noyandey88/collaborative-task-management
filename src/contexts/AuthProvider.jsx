@@ -62,7 +62,7 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
-    const currentUserData = parsedUserData.find((userData) => userData.email === user?.email);
+    const currentUserData = parsedUserData?.find((userData) => userData.email === user?.email);
     setLoggedInUserInfo(currentUserData);
   }, [user]);
 
@@ -83,7 +83,7 @@ export default function AuthProvider({ children }) {
     googleLogin,
     loggedInUserInfo,
     dbUsers,
-  }), [user, loading, loggedInUserInfo, dbUsers]);
+  }), [user, loading, dbUsers, loggedInUserInfo]);
 
   return (
     <AuthContext.Provider value={authInfo}>

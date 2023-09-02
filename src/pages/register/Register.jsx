@@ -23,13 +23,14 @@ export default function Register() {
     formData.append('image', image);
     // imgbb file upload url
     const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`;
+    setLoading(true);
     fetch(url, { method: 'POST', body: formData })
       .then((res) => res.json())
       .then((photoData) => {
         // create a new user at firebase
         createUser(email, password)
           .then((result) => {
-            setLoading(true);
+            // setLoading(true);
             const { user } = result;
             // update user profile to firebase
             updateUserProfile(username, photoData.data.url)
@@ -37,7 +38,7 @@ export default function Register() {
                 setLoading(false);
                 // save to localStorage
                 saveUserDataToDb(username, email, bio);
-                navigate('/');
+                navigate('/dashboard');
                 toast.success('Register user successfully');
               }).catch((err) => {
                 console.error(err);
@@ -63,7 +64,7 @@ export default function Register() {
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           <span className="text-primary">Register</span>
           {' '}
-          to your account
+          your account
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

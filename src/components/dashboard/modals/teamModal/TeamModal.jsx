@@ -1,14 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import AsyncSelect from 'react-select/async';
 import { AuthContext } from '../../../../contexts/AuthProvider';
+import { saveTeamDataToDb } from '../../../../db-api/db-api';
 import Button from '../../../../ui/button/Button';
 
 export default function TeamModal() {
   const [isOpen, setIsOpen] = useState(false);
   const { dbUsers } = useContext(AuthContext);
   const [members, setMembers] = useState([]);
+  const [teamName, setTeamName] = useState();
+  const { user } = useContext(AuthContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -20,7 +24,7 @@ export default function TeamModal() {
 
   // create a new array from db user data
   const formattedUserNames = dbUsers
-    ? dbUsers.map((userInfo) => ({
+    ? dbUsers?.map((userInfo) => ({
       value: userInfo.username.toLowerCase(),
       label: userInfo.username,
     })) : [];
@@ -37,6 +41,14 @@ export default function TeamModal() {
   // get values from react select
   const handleChange = (value) => {
     setMembers(value);
+  };
+
+  // save team data to db
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    saveTeamDataToDb(teamName, members, user?.email, user?.displayName);
+    toast.success('Team Created Successfully');
+    closeModal();
   };
 
   return (
@@ -82,13 +94,21 @@ export default function TeamModal() {
                   </Dialog.Title>
                   {/* modal contents */}
                   <section className="mt-2">
-                    <form className="space-y-2">
+                    <form onSubmit={handleSubmit} className="space-y-3">
                       {/* team name */}
                       <div>
                         <label htmlFor="project__name" className="block text-xs font-medium text-gray-700">
                           Team Name
                         </label>
-                        <input type="text" id="project__name" placeholder="Ex: task-management" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary" />
+                        <input
+                          type="text"
+                          id="project__name"
+                          placeholder="Ex: Team Elevators"
+                          className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary"
+                          onChange={(e) => setTeamName(e.target.value)}
+                          value={teamName}
+                          required
+                        />
                       </div>
                       {/* select team */}
                       <div>
@@ -102,19 +122,20 @@ export default function TeamModal() {
                           loadOptions={promiseOptions}
                           onChange={handleChange}
                           className="absolute z-30"
+                          required
                         />
+                      </div>
+                      <div>
+                        <Button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        // onClick={closeModal}
+                        >
+                          Create
+                        </Button>
                       </div>
                     </form>
                   </section>
-                  <div className="mt-4">
-                    <Button
-                      type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Create
-                    </Button>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
