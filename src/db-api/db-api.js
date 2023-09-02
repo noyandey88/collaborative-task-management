@@ -61,7 +61,7 @@ export const saveTeamDataToDb = (name, memberData, userEmail, username) => {
   }
 };
 
-export const saveProjectToDb = (name, userEmail) => {
+export const saveProjectToDb = (name, team, userEmail) => {
   const projectData = [];
   const uniqueId = makeRandomId(6);
   const projectInfo = getDataFromLocalStorage('project-info') || [];
@@ -71,6 +71,7 @@ export const saveProjectToDb = (name, userEmail) => {
       id: uniqueId,
       name,
       tasks: [],
+      team,
       projectCreator: userEmail,
     });
     localStorage.setItem('project-info', JSON.stringify(projectData));
@@ -81,6 +82,7 @@ export const saveProjectToDb = (name, userEmail) => {
         id: uniqueId,
         name,
         tasks: [],
+        team,
         projectCreator: userEmail,
       },
     );

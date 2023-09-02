@@ -1,14 +1,17 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../../../contexts/AuthProvider';
 import { StorageContext } from '../../../../contexts/StorageProvider';
 import Button from '../../../../ui/button/Button';
 
 export default function ProjectModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { loggedInUserTeamInfo } = useContext(StorageContext);
+  const { loggedInUserTeamInfo, saveProjectsToDB } = useContext(StorageContext);
   const [projectName, setProjectName] = useState('');
   const [teamInfo, setTeamInfo] = useState('');
+  const { user } = useContext(AuthContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -21,8 +24,10 @@ export default function ProjectModal() {
   // add project data to db
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(JSON.parse(teamInfo));
+    const parsedTeamInfo = JSON.parse(teamInfo);
+    saveProjectsToDB(projectName, parsedTeamInfo, user?.email);
     closeModal();
+    toast.success('Project is added successfully');
   };
 
   return (
