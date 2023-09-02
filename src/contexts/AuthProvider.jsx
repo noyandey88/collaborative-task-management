@@ -22,8 +22,6 @@ const googleProvider = new GoogleAuthProvider();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [loggedInUserInfo, setLoggedInUserInfo] = useState({});
-  const [dbUsers, setDbUsers] = useState([]);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -52,6 +50,7 @@ export default function AuthProvider({ children }) {
     return signInWithPopup(auth, googleProvider);
   };
 
+  // continue checking if a user logged in or not
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -59,18 +58,6 @@ export default function AuthProvider({ children }) {
     });
     return () => unsubscribe();
   }, []);
-
-  useEffect(() => {
-    const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
-    const currentUserData = parsedUserData?.find((userData) => userData.email === user?.email);
-    setLoggedInUserInfo(currentUserData);
-  }, [user]);
-
-  // get all users
-  useEffect(() => {
-    const parsedUserData = JSON.parse(localStorage.getItem('user-info'));
-    setDbUsers(parsedUserData);
-  }, [user]);
 
   const authInfo = useMemo(() => ({
     user,
@@ -81,9 +68,7 @@ export default function AuthProvider({ children }) {
     logoutUser,
     updateUserProfile,
     googleLogin,
-    loggedInUserInfo,
-    dbUsers,
-  }), [user, loading, dbUsers, loggedInUserInfo]);
+  }), [user, loading]);
 
   return (
     <AuthContext.Provider value={authInfo}>

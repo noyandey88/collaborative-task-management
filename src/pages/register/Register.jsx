@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
-import { saveUserDataToDb } from '../../db-api/db-api';
+import { StorageContext } from '../../contexts/StorageProvider';
 import Button from '../../ui/button/Button';
 
 export default function Register() {
@@ -11,6 +11,7 @@ export default function Register() {
   const {
     createUser, updateUserProfile, loading, setLoading,
   } = useContext(AuthContext);
+  const { saveUserToDb } = useContext(StorageContext);
   const navigate = useNavigate();
 
   const handleRegisterUser = (data) => {
@@ -37,7 +38,7 @@ export default function Register() {
               .then(() => {
                 setLoading(false);
                 // save to localStorage
-                saveUserDataToDb(username, email, bio);
+                saveUserToDb(username, email, bio);
                 navigate('/dashboard');
                 toast.success('Register user successfully');
               }).catch((err) => {

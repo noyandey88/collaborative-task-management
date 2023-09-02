@@ -4,12 +4,12 @@ import {
   Fragment, useContext,
   useState,
 } from 'react';
-import { AuthContext } from '../../../../contexts/AuthProvider';
+import { StorageContext } from '../../../../contexts/StorageProvider';
 import Button from '../../../../ui/button/Button';
 
 export default function ProfileModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { loggedInUserInfo } = useContext(AuthContext);
+  const { loggedInUserInfo } = useContext(StorageContext);
 
   function closeModal() {
     setIsOpen(false);

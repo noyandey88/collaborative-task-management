@@ -29,6 +29,7 @@ export const saveUserDataToDb = (username, email, bio) => {
   }
 };
 
+// save team data to db
 export const saveTeamDataToDb = (name, memberData, userEmail, username) => {
   const teamData = [];
   const uniqueId = makeRandomId(6);

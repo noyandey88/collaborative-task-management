@@ -4,12 +4,13 @@ import { Fragment, useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import AsyncSelect from 'react-select/async';
 import { AuthContext } from '../../../../contexts/AuthProvider';
+import { StorageContext } from '../../../../contexts/StorageProvider';
 import { saveTeamDataToDb } from '../../../../db-api/db-api';
 import Button from '../../../../ui/button/Button';
 
 export default function TeamModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { dbUsers } = useContext(AuthContext);
+  const { dbUsers } = useContext(StorageContext);
   const [members, setMembers] = useState([]);
   const [teamName, setTeamName] = useState();
   const { user } = useContext(AuthContext);
@@ -90,7 +91,9 @@ export default function TeamModal() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Create a Team
+                    <span className="text-primary">Create</span>
+                    {' '}
+                    a Team
                   </Dialog.Title>
                   {/* modal contents */}
                   <section className="mt-2">
