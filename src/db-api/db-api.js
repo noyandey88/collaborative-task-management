@@ -60,3 +60,30 @@ export const saveTeamDataToDb = (name, memberData, userEmail, username) => {
     localStorage.setItem('team-info', JSON.stringify(teamData));
   }
 };
+
+export const saveProjectToDb = (name, userEmail) => {
+  const projectData = [];
+  const uniqueId = makeRandomId(6);
+  const projectInfo = getDataFromLocalStorage('project-info') || [];
+
+  if (!projectInfo) {
+    projectData.push({
+      id: uniqueId,
+      name,
+      tasks: [],
+      projectCreator: userEmail,
+    });
+    localStorage.setItem('project-info', JSON.stringify(projectData));
+  } else {
+    projectData.push(
+      ...projectInfo,
+      {
+        id: uniqueId,
+        name,
+        tasks: [],
+        projectCreator: userEmail,
+      },
+    );
+    localStorage.setItem('project-info', JSON.stringify(projectData));
+  }
+};

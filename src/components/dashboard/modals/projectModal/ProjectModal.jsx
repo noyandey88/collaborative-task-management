@@ -1,10 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
+import { StorageContext } from '../../../../contexts/StorageProvider';
 import Button from '../../../../ui/button/Button';
 
 export default function ProjectModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const { loggedInUserTeamInfo } = useContext(StorageContext);
+  const [projectName, setProjectName] = useState('');
+  const [teamInfo, setTeamInfo] = useState('');
 
   function closeModal() {
     setIsOpen(false);
@@ -13,6 +17,13 @@ export default function ProjectModal() {
   function openModal() {
     setIsOpen(true);
   }
+
+  // add project data to db
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(JSON.parse(teamInfo));
+    closeModal();
+  };
 
   return (
     <>
@@ -57,38 +68,53 @@ export default function ProjectModal() {
                   </Dialog.Title>
                   {/* modal content */}
                   <section className="mt-2">
-                    <form className="space-y-2">
+                    <form onSubmit={handleSubmit} className="space-y-2">
                       {/* project name */}
                       <div>
                         <label htmlFor="project__name" className="block text-xs font-medium text-gray-700">
                           Project Name
                         </label>
-                        <input type="text" id="project__name" placeholder="Ex: task-management" className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary" />
+                        <input
+                          type="text"
+                          id="project__name"
+                          placeholder="Ex: task-management"
+                          className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary"
+                          required
+                          onChange={(e) => setProjectName(e.target.value)}
+                          value={projectName}
+                        />
                       </div>
                       {/* select team */}
                       <div>
                         <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                           Select a Team
                         </label>
-                        <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                        <select
+                          name="HeadlineAct"
+                          id="HeadlineAct"
+                          className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                          required
+                          onChange={(e) => setTeamInfo(e.target.value)}
+                          value={teamInfo}
+                        >
                           <option defaultValue hidden>Select</option>
-                          <option value="JM">John Mayer</option>
-                          <option value="SRV">Stevie Ray Vaughn</option>
-                          <option value="JH">Jimi Hendrix</option>
-                          <option value="BBK">B.B King</option>
+                          {
+                            loggedInUserTeamInfo?.map((team) => (
+                              <option value={JSON.stringify(team)}>{team?.name}</option>
+                            ))
+                          }
                         </select>
+                      </div>
+                      <div className="mt-4">
+                        <Button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        >
+                          Create
+                        </Button>
                       </div>
                     </form>
                   </section>
-                  <div className="mt-4">
-                    <Button
-                      type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Create
-                    </Button>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

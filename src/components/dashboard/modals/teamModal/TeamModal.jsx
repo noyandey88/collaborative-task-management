@@ -11,7 +11,7 @@ export default function TeamModal() {
   const [isOpen, setIsOpen] = useState(false);
   const { dbUsers, saveTeamToDB } = useContext(StorageContext);
   const [members, setMembers] = useState([]);
-  const [teamName, setTeamName] = useState();
+  const [teamName, setTeamName] = useState('');
   const { user } = useContext(AuthContext);
 
   function closeModal() {
