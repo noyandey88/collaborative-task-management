@@ -1,5 +1,6 @@
 import { ArrowUturnLeftIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
+import Projects from '../projects/Projects';
 import Teams from '../teams/Teams';
 
 export default function SidebarMenu() {
@@ -39,18 +40,7 @@ export default function SidebarMenu() {
                 </svg>
               </span>
             </summary>
-            <ul className="mt-2 space-y-1 px-4">
-              <li>
-                <a href className="block rounded-lg px-4 py-2 text-sm font-medium text-secondary hover:bg-secondary hover:text-primary">
-                  Details
-                </a>
-              </li>
-              <li>
-                <a href className="block rounded-lg px-4 py-2 text-sm font-medium text-secondary hover:bg-secondary hover:text-primary">
-                  Security
-                </a>
-              </li>
-            </ul>
+            <Projects />
           </details>
         </li>
         {/* teams */}
