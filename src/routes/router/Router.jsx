@@ -5,7 +5,7 @@ import Main from '../../layouts/Main';
 import DashboardHome from '../../pages/daashboard/dashbaordHome/DashboardHome';
 import MyTasks from '../../pages/daashboard/myTasks/MyTasks';
 import Projects from '../../pages/daashboard/projects/Projects';
-import Teams from '../../pages/daashboard/teams/Teams';
+import TeamData from '../../pages/daashboard/teams/TeamData';
 import Home from '../../pages/home/Home';
 import Login from '../../pages/login/Login';
 import NotFound from '../../pages/notFound/NotFound';
@@ -62,10 +62,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/dashboard/teams',
+        path: '/dashboard/teams/:id',
         element: (
           <PrivateRoute>
-            <Teams />
+            <TeamData />
           </PrivateRoute>
         ),
       },

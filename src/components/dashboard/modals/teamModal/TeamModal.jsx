@@ -5,12 +5,11 @@ import { toast } from 'react-hot-toast';
 import AsyncSelect from 'react-select/async';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 import { StorageContext } from '../../../../contexts/StorageProvider';
-import { saveTeamDataToDb } from '../../../../db-api/db-api';
 import Button from '../../../../ui/button/Button';
 
 export default function TeamModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { dbUsers } = useContext(StorageContext);
+  const { dbUsers, saveTeamToDB } = useContext(StorageContext);
   const [members, setMembers] = useState([]);
   const [teamName, setTeamName] = useState();
   const { user } = useContext(AuthContext);
@@ -26,8 +25,9 @@ export default function TeamModal() {
   // create a new array from db user data
   const formattedUserNames = dbUsers
     ? dbUsers?.map((userInfo) => ({
-      value: userInfo.username.toLowerCase(),
+      value: userInfo?.username.toLowerCase(),
       label: userInfo.username,
+      email: userInfo.email,
     })) : [];
 
   // working team member selection
@@ -41,13 +41,18 @@ export default function TeamModal() {
 
   // get values from react select
   const handleChange = (value) => {
-    setMembers(value);
+    // format the team data for set team data
+    const formatMembers = value?.map((member) => ({
+      name: member.label,
+      email: member.email,
+    }));
+    setMembers(formatMembers);
   };
 
   // save team data to db
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveTeamDataToDb(teamName, members, user?.email, user?.displayName);
+    saveTeamToDB(teamName, members, user?.email, user?.displayName);
     toast.success('Team Created Successfully');
     closeModal();
   };
