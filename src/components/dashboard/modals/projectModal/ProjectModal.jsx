@@ -105,7 +105,7 @@ export default function ProjectModal() {
                           <option defaultValue hidden>Select</option>
                           {
                             loggedInUserTeamInfo?.map((team) => (
-                              <option value={JSON.stringify(team)}>{team?.name}</option>
+                              <option key={team.id} value={JSON.stringify(team)}>{team?.name}</option>
                             ))
                           }
                         </select>

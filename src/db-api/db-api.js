@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { getDataFromLocalStorage, makeRandomId } from '../lib/utils';
 
 // save user data to localStorage
@@ -87,5 +86,19 @@ export const saveProjectToDb = (name, team, userEmail) => {
       },
     );
     localStorage.setItem('project-info', JSON.stringify(projectData));
+  }
+};
+
+export const updateTaskToProjectInDb = (projectId, taskData) => {
+  const uniqueId = makeRandomId(6);
+  const projectInfo = getDataFromLocalStorage('project-info') || [];
+  const updateAbleTask = { id: uniqueId, ...taskData };
+
+  const elementToUpdate = projectInfo?.findIndex((project) => project?.id === projectId);
+  if (elementToUpdate !== -1) {
+    projectInfo[elementToUpdate]?.tasks.push(updateAbleTask);
+    localStorage.setItem('project-info', JSON.stringify(projectInfo));
+  } else {
+    throw new Error('Element is not updatable');
   }
 };

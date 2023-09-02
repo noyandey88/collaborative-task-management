@@ -1,12 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { updateTaskToProjectInDb } from '../../../db-api/db-api';
 import Button from '../../../ui/button/Button';
 
-export default function TaskModal({ team }) {
+export default function TaskModal({ team, projectId }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [teamName, setTeamName] = useState('');
+  const [input, setInput] = useState({
+    taskName: '',
+    assignee: '',
+    dueDate: '',
+    priority: '',
+    status: 'pending',
+  });
 
   function closeModal() {
     setIsOpen(false);
@@ -18,7 +24,10 @@ export default function TaskModal({ team }) {
   // save team data to db
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.success('Team Created Successfully');
+    const taskData = { ...input, assignee: JSON.parse(input.assignee) };
+    // console.log(taskData);
+    updateTaskToProjectInDb(projectId, taskData);
+    // toast.success('Team Created Successfully');
     closeModal();
   };
 
@@ -74,10 +83,10 @@ export default function TaskModal({ team }) {
                         <input
                           type="text"
                           id="project__name"
-                          placeholder="Ex: Team Elevators"
+                          placeholder="Ex: Create a dashboard with charts"
                           className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary"
-                          onChange={(e) => setTeamName(e.target.value)}
-                          value={teamName}
+                          onChange={(e) => setInput({ ...input, taskName: e.target.value })}
+                          value={input.taskName}
                           required
                         />
                       </div>
@@ -88,11 +97,18 @@ export default function TaskModal({ team }) {
                           <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                             Select Assignee
                           </label>
-                          <select name="HeadlineAct" id="HeadlineAct" className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                          <select
+                            name="HeadlineAct"
+                            id="HeadlineAct"
+                            className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                            onChange={(e) => setInput({ ...input, assignee: e.target.value })}
+                            value={input.assignee}
+                            required
+                          >
                             <option defaultValue hidden>Select</option>
                             {
                               team?.members?.map((member) => (
-                                <option key={member?.email} value={JSON.stringify(member)}>{member?.name}</option>
+                                <option key={member?.email} value={JSON.stringify(member)} className="">{member?.name}</option>
                               ))
                             }
                           </select>
@@ -107,6 +123,8 @@ export default function TaskModal({ team }) {
                             id="project__name"
                             placeholder="Ex: Team Elevators"
                             className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary"
+                            onChange={(e) => setInput({ ...input, dueDate: e.target.value })}
+                            value={input.dueDate}
                             required
                           />
                         </div>
@@ -115,7 +133,13 @@ export default function TaskModal({ team }) {
                           <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                             Priority level
                           </label>
-                          <select name="HeadlineAct" id="HeadlineAct" className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                          <select
+                            name="HeadlineAct"
+                            id="HeadlineAct"
+                            className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                            onChange={(e) => setInput({ ...input, priority: e.target.value })}
+                            value={input.priority}
+                          >
                             <option defaultValue hidden>Select</option>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>

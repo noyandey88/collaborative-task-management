@@ -39,7 +39,7 @@ export default function ProjectData() {
                   {' '}
                   Found
                 </h2>
-                <TaskModal team={team} />
+                <TaskModal team={team} projectId={id} />
               </div>
             </div>
           ) : (
