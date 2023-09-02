@@ -13,7 +13,7 @@ export default function DashboardHome() {
     <section className="space-y-2">
       {/* greetings */}
       <div className="text-center">
-        <h2 className="text-3xl">
+        <h2 className="text-2xl md:text-3xl">
           <span className="text-xl">{date.toDateString()}</span>
           <br />
           {greeting}
