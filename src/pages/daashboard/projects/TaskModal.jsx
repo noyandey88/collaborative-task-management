@@ -10,6 +10,7 @@ export default function TaskModal({ team, projectId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
     taskName: '',
+    description: '',
     assignee: '',
     dueDate: '',
     priority: '',
@@ -94,6 +95,21 @@ export default function TaskModal({ team, projectId }) {
                           className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm focus:ring-primary"
                           onChange={(e) => setInput({ ...input, taskName: e.target.value })}
                           value={input.taskName}
+                          required
+                        />
+                      </div>
+                      {/* task description */}
+                      <div>
+                        <label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700">
+                          Task Description
+                        </label>
+                        <textarea
+                          id="OrderNotes"
+                          className="mt-2 w-full rounded-lg border-gray-200 align-top shadow-sm sm:text-sm"
+                          rows={4}
+                          placeholder="Enter any additional description here..."
+                          onChange={(e) => setInput({ ...input, description: e.target.value })}
+                          value={input.description}
                           required
                         />
                       </div>
