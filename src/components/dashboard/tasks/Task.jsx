@@ -1,16 +1,19 @@
-import { useState } from 'react';
-import { updateTaskPriority, updateTaskStatus } from '../../../db-api/db-api';
+import { useContext, useState } from 'react';
+import { StorageContext } from '../../../contexts/StorageProvider';
+import { updateTaskStatus } from '../../../db-api/db-api';
 
 export default function Task({ task, index, projectId }) {
   const [newStatus, setNewStatus] = useState('');
   const [newPriority, setNewPriority] = useState('');
+  const { updateProjectTaskPriority } = useContext(StorageContext);
   const {
     id, taskName, assignee, dueDate, priority, status,
   } = task || {};
 
   const handlePriorityChange = (e) => {
     setNewPriority(e.target.value);
-    updateTaskPriority(projectId, id, e.target.value);
+    // updateTaskPriority(projectId, id, e.target.value);
+    updateProjectTaskPriority(projectId, id, e.target.value);
   };
 
   const handleStatusChange = (e) => {

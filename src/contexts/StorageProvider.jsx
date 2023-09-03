@@ -2,7 +2,7 @@ import {
   createContext, useContext, useEffect, useMemo, useState,
 } from 'react';
 import {
-  saveProjectToDb, saveTeamDataToDb, saveUserDataToDb, updateTaskToProjectInDb,
+  saveProjectToDb, saveTeamDataToDb, saveUserDataToDb, updateTaskPriority, updateTaskToProjectInDb,
 } from '../db-api/db-api';
 import { AuthContext } from './AuthProvider';
 
@@ -24,8 +24,8 @@ export default function StorageProvider({ children }) {
   const [loggedInUserProjectsInfo, setLoggedInUserProjectsInfo] = useState([]);
   const [projects, setProjects] = useState(() => {
     // Use localStorage data if available, or an empty array if not
-    const parsedTeamData = JSON.parse(localStorage.getItem('project-info')) || [];
-    return parsedTeamData;
+    const parsedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];
+    return parsedProjectData;
   });
 
   const { user } = useContext(AuthContext);
@@ -81,7 +81,7 @@ export default function StorageProvider({ children }) {
   // Function to save user data to localStorage
   const saveProjectsToDB = (name, team, userEmail) => {
     saveProjectToDb(name, team, userEmail);
-    // After saving, update the dbUsers state
+    // After saving, update the projects state
     updateProjectData(JSON.parse(localStorage.getItem('project-info')));
   };
 
@@ -93,6 +93,10 @@ export default function StorageProvider({ children }) {
   };
 
   // update a specific task data on a specific project
+  const updateProjectTaskPriority = (projectId, taskId, newPriority) => {
+    updateTaskPriority(projectId, taskId, newPriority);
+    updateProjectData(JSON.parse(localStorage.getItem('project-info')));
+  };
 
   const dbInfo = useMemo(() => ({
     dbUsers,
@@ -106,7 +110,8 @@ export default function StorageProvider({ children }) {
     loggedInUserTeamInfo,
     projects,
     loggedInUserProjectsInfo,
-  }), [dbUsers, loggedInUserInfo, loggedInUserTeamInfo, loggedInUserProjectsInfo]);
+    updateProjectTaskPriority,
+  }), [dbUsers, loggedInUserInfo, loggedInUserTeamInfo, projects, loggedInUserProjectsInfo]);
 
   return (
     <StorageContext.Provider value={dbInfo}>
