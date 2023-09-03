@@ -45,7 +45,7 @@ export default function DashboardHome() {
         </div>
       </div>
       {/* tasks cards */}
-      <div className="py-10 lg:py-4">
+      <div className="pt-4 lg:pt-4">
         <div className="mb-4">
           <h2 className="text-dark font-bold">Tasks:</h2>
         </div>
@@ -92,7 +92,7 @@ export default function DashboardHome() {
         {/* End Grid */}
       </div>
       {/* projects cards */}
-      <div className="py-10 lg:py-4">
+      <div className="py-4 lg:py-4">
         <div className="mb-4">
           <h2 className="text-dark font-bold">Projects:</h2>
         </div>

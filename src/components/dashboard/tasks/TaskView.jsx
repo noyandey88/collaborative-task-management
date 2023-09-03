@@ -1,9 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import Button from '../../../ui/button/Button';
 
-export default function TaskView() {
+export default function TaskView({ task }) {
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    taskName, assignee, dueDate, priority, status, description,
+  } = task || {};
 
   function closeModal() {
     setIsOpen(false);
@@ -49,28 +53,61 @@ export default function TaskView() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  {/* modal title */}
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    <span className="text-primary font-semibold">
+                      Task
+                    </span>
+                    {' '}
+                    Details
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
+                  {/* modal contents */}
+                  <div className="flow-root mt-2">
+                    <dl className="-my-3 divide-y divide-gray-100 text-sm">
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Name:</dt>
+                        <dd className="sm:col-span-2 text-primary">{taskName}</dd>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Assignee</dt>
+                        <dd className="text-gray-700 sm:col-span-2">{assignee?.name}</dd>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Assignee Email</dt>
+                        <dd className="text-gray-700 sm:col-span-2">{assignee?.email}</dd>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Due Date</dt>
+                        <dd className="text-gray-700 sm:col-span-2">{(new Date(dueDate).toDateString())}</dd>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Priority Level</dt>
+                        <dd className="text-gray-700 sm:col-span-2">{priority}</dd>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Status</dt>
+                        <dd className="text-gray-700 sm:col-span-2">{status}</dd>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                        <dt className="font-medium text-gray-900">Description</dt>
+                        <dd className="text-gray-700 sm:col-span-2">
+                          {description || 'N/A'}
+                        </dd>
+                      </div>
+                    </dl>
                   </div>
-
                   <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    <Button
                       onClick={closeModal}
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
-                      Got it, thanks!
-                    </button>
+                      Close
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

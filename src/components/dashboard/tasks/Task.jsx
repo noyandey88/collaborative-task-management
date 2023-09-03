@@ -83,7 +83,7 @@ export default function Task({ task, index, projectId }) {
       {/* details view button */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-2 py-2">
-          <TaskView />
+          <TaskView task={task} />
         </div>
       </td>
     </tr>
