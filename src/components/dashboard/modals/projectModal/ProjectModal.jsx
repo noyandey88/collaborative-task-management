@@ -4,6 +4,7 @@ import { Fragment, useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 import { StorageContext } from '../../../../contexts/StorageProvider';
+import { updateProjectToTeam } from '../../../../db-api/db-api';
 import Button from '../../../../ui/button/Button';
 
 export default function ProjectModal() {
@@ -26,6 +27,8 @@ export default function ProjectModal() {
     e.preventDefault();
     const parsedTeamInfo = JSON.parse(teamInfo);
     saveProjectsToDB(projectName, parsedTeamInfo, user?.email);
+    // update project info to team data
+    updateProjectToTeam(parsedTeamInfo?.id, projectName);
     closeModal();
     toast.success('Project is added successfully');
   };

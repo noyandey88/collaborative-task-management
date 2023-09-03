@@ -102,6 +102,18 @@ export const updateTaskToProjectInDb = (projectId, taskData) => {
   }
 };
 
+export const updateProjectToTeam = (teamId, projectName) => {
+  const teamInfo = getDataFromLocalStorage('team-info') || [];
+
+  const elementToUpdate = teamInfo?.findIndex((team) => team?.id === teamId);
+  if (elementToUpdate !== -1) {
+    teamInfo[elementToUpdate]?.projects.push(projectName);
+    localStorage.setItem('team-info', JSON.stringify(teamInfo));
+  } else {
+    throw new Error('Element is not updatable');
+  }
+};
+
 export const updateTaskPriority = (projectId, taskId, newPriority) => {
   const projectInfo = getDataFromLocalStorage('project-info') || [];
   const updatableProject = projectInfo?.find((project) => project.id === projectId);
