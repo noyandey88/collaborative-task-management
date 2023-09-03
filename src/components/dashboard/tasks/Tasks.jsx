@@ -14,7 +14,7 @@ export default function Tasks() {
     setProject(filteredProject);
   }, [id, projects]);
 
-  // filter
+  // filter by task status
   const filterByStatus = (task) => {
     switch (filterTitle) {
       case 'Done':
@@ -53,7 +53,7 @@ export default function Tasks() {
           </th>
           <th scope="col" className="px-6 py-3 text-center">
             <div className="flex justify-center items-center gap-x-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+              <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 whitespace-nowrap">
                 Due Date
               </span>
             </div>

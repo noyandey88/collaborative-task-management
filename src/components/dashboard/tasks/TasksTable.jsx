@@ -25,23 +25,24 @@ export default function TasksTable({ team, projectId }) {
                   {/* sort */}
                   <div>
                     <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
-                      Sort
+                      <span className="text-primary">Sort</span>
+                      {' '}
+                      by
                     </label>
                     <select name="HeadlineAct" id="HeadlineAct" className="w-full mt-1 rounded-lg border-gray-300 text-gray-700 sm:text-sm">
-                      <option value>Please select</option>
+                      <option defaultValue>Select</option>
                       <option value="JM">John Mayer</option>
                       <option value="SRV">Stevie Ray Vaughn</option>
                       <option value="JH">Jimi Hendrix</option>
                       <option value="BBK">B.B King</option>
-                      <option value="AK">Albert King</option>
-                      <option value="BG">Buddy Guy</option>
-                      <option value="EC">Eric Clapton</option>
                     </select>
                   </div>
                   {/* filter */}
                   <div>
                     <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
-                      Filter
+                      <span className="text-primary">Filter</span>
+                      {' '}
+                      by
                     </label>
                     <select
                       name="HeadlineAct"
