@@ -101,3 +101,33 @@ export const updateTaskToProjectInDb = (projectId, taskData) => {
     throw new Error('Element is not updatable');
   }
 };
+
+export const updateTaskPriority = (projectId, taskId, newPriority) => {
+  const projectInfo = getDataFromLocalStorage('project-info') || [];
+  const updatableProject = projectInfo?.find((project) => project.id === projectId);
+  const { tasks } = updatableProject || {};
+
+  // check which element to update
+  const elementToUpdate = tasks?.findIndex((task) => task?.id === taskId);
+  if (elementToUpdate !== -1) {
+    tasks[elementToUpdate].priority = newPriority;
+    localStorage.setItem('project-info', JSON.stringify(projectInfo));
+  } else {
+    throw new Error('Element is not updatable');
+  }
+};
+
+export const updateTaskStatus = (projectId, taskId, newStatus) => {
+  const projectInfo = getDataFromLocalStorage('project-info') || [];
+  const updatableProject = projectInfo?.find((project) => project.id === projectId);
+  const { tasks } = updatableProject || {};
+
+  // check which element to update
+  const elementToUpdate = tasks?.findIndex((task) => task?.id === taskId);
+  if (elementToUpdate !== -1) {
+    tasks[elementToUpdate].status = newStatus;
+    localStorage.setItem('project-info', JSON.stringify(projectInfo));
+  } else {
+    throw new Error('Element is not updatable');
+  }
+};

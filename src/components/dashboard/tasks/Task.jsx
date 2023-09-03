@@ -1,28 +1,29 @@
 import { useState } from 'react';
+import { updateTaskPriority, updateTaskStatus } from '../../../db-api/db-api';
 
-export default function Task({ task }) {
+export default function Task({ task, index, projectId }) {
   const [newStatus, setNewStatus] = useState('');
   const [newPriority, setNewPriority] = useState('');
-  const [isCompleted, setIsCompleted] = useState(false);
   const {
-    taskName, assignee, dueDate, priority, status,
+    id, taskName, assignee, dueDate, priority, status,
   } = task || {};
+
+  const handlePriorityChange = (e) => {
+    setNewPriority(e.target.value);
+    updateTaskPriority(projectId, id, e.target.value);
+  };
+
+  const handleStatusChange = (e) => {
+    setNewStatus(e.target.value);
+    updateTaskStatus(projectId, id, e.target.value);
+  };
 
   return (
     <tr>
       {/* checkbox */}
       <td className="h-px w-px whitespace-nowrap">
         <div className="pl-6 py-3">
-          <label htmlFor="hs-at-with-checkboxes-1" className="flex">
-            <input
-              type="checkbox"
-              id="hs-at-with-checkboxes-1"
-              className="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500"
-              onChange={(e) => setIsCompleted(e.target.checked)}
-              checked={status === 'Done'}
-            />
-            <span className="sr-only">Checkbox</span>
-          </label>
+          {index + 1}
         </div>
       </td>
       {/* task name */}
@@ -51,7 +52,7 @@ export default function Task({ task }) {
             name="HeadlineAct"
             id="HeadlineAct"
             className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
-            onChange={(e) => setNewPriority(e.target.value)}
+            onChange={handlePriorityChange}
             value={priority}
           >
             <option defaultValue hidden>Select</option>
@@ -68,7 +69,7 @@ export default function Task({ task }) {
             name="HeadlineAct"
             id="HeadlineAct"
             className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
-            onChange={(e) => setNewStatus(e.target.value)}
+            onChange={handleStatusChange}
             value={status}
           >
             <option defaultValue hidden>Select</option>

@@ -58,7 +58,7 @@ export default function Tasks() {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {tasks?.map((task) => <Task key={task?.id} task={task} />)}
+        {tasks?.map((task, index) => <Task key={task?.id} task={task} index={index} projectId={id} />)}
       </tbody>
     </table>
   );
