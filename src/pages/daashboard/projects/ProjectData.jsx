@@ -29,8 +29,10 @@ export default function ProjectData() {
       </div>
       {/* tasks table */}
       {
-        tasks?.length <= 0
+        tasks?.length !== 0
           ? (
+            <TasksTable team={team} projectId={id} />
+          ) : (
             <div className="flex justify-center items-center mt-10">
               <div className="space-y-2 text-center">
                 <h2 className="font-semibold text-xl">
@@ -43,8 +45,6 @@ export default function ProjectData() {
                 <TaskModal team={team} projectId={id} />
               </div>
             </div>
-          ) : (
-            <TasksTable team={team} projectId={id} />
           )
       }
     </section>

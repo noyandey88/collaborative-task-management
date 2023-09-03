@@ -128,28 +128,6 @@ export default function DashboardHome() {
                 </div>
               )
           }
-          {
-            projects?.map((project) => (
-              <div key={project?.id} className="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
-                <div className="p-4 md:p-5">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      {/* task name */}
-                      <h3 className="group-hover:text-primary font-semibold text-dark">
-                        {project?.name}
-                      </h3>
-                      {/* task priority */}
-                      <p className="text-sm text-gray-500">
-                        Creator:
-                        {' '}
-                        <span className="text-primary">{user?.displayName}</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          }
           {/* End Card */}
         </div>
         {/* End Grid */}
