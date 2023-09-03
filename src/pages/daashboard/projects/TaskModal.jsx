@@ -1,17 +1,19 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { updateTaskToProjectInDb } from '../../../db-api/db-api';
+import { Fragment, useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { StorageContext } from '../../../contexts/StorageProvider';
 import Button from '../../../ui/button/Button';
 
 export default function TaskModal({ team, projectId }) {
+  const { saveTaskDataToProjectDataDb } = useContext(StorageContext);
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
     taskName: '',
     assignee: '',
     dueDate: '',
     priority: '',
-    status: 'pending',
+    status: 'Pending',
   });
 
   function closeModal() {
@@ -26,8 +28,8 @@ export default function TaskModal({ team, projectId }) {
     e.preventDefault();
     const taskData = { ...input, assignee: JSON.parse(input.assignee) };
     // console.log(taskData);
-    updateTaskToProjectInDb(projectId, taskData);
-    // toast.success('Team Created Successfully');
+    saveTaskDataToProjectDataDb(projectId, taskData);
+    toast.success('Task is Created Successfully');
     closeModal();
   };
 
@@ -107,8 +109,8 @@ export default function TaskModal({ team, projectId }) {
                           >
                             <option defaultValue hidden>Select</option>
                             {
-                              team?.members?.map((member) => (
-                                <option key={member?.email} value={JSON.stringify(member)} className="">{member?.name}</option>
+                              team?.members?.map((member, index) => (
+                                <option key={index} value={JSON.stringify(member)}>{member?.name}</option>
                               ))
                             }
                           </select>

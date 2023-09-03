@@ -1,7 +1,9 @@
 import {
   createContext, useContext, useEffect, useMemo, useState,
 } from 'react';
-import { saveProjectToDb, saveTeamDataToDb, saveUserDataToDb } from '../db-api/db-api';
+import {
+  saveProjectToDb, saveTeamDataToDb, saveUserDataToDb, updateTaskToProjectInDb,
+} from '../db-api/db-api';
 import { AuthContext } from './AuthProvider';
 
 export const StorageContext = createContext();
@@ -83,6 +85,13 @@ export default function StorageProvider({ children }) {
     updateProjectData(JSON.parse(localStorage.getItem('project-info')));
   };
 
+  // update task data to project data
+  const saveTaskDataToProjectDataDb = (projectId, taskData) => {
+    updateTaskToProjectInDb(projectId, taskData);
+    // After saving, update the dbUsers state
+    updateProjectData(JSON.parse(localStorage.getItem('project-info')));
+  };
+
   const dbInfo = useMemo(() => ({
     dbUsers,
     loggedInUserInfo,
@@ -90,6 +99,7 @@ export default function StorageProvider({ children }) {
     saveUserToDb,
     saveTeamToDB,
     saveProjectsToDB,
+    saveTaskDataToProjectDataDb,
     teams,
     loggedInUserTeamInfo,
     projects,

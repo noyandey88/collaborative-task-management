@@ -52,7 +52,8 @@ export default function TeamModal() {
   // save team data to db
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveTeamToDB(teamName, members, user?.email, user?.displayName);
+    const filteredMembers = members?.filter((member) => member?.email !== user?.email);
+    saveTeamToDB(teamName, filteredMembers, user?.email, user?.displayName);
     toast.success('Team Created Successfully');
     closeModal();
   };

@@ -34,13 +34,12 @@ export const saveTeamDataToDb = (name, memberData, userEmail, username) => {
   const uniqueId = makeRandomId(6);
   const teamInfo = getDataFromLocalStorage('team-info') || [];
   const membersData = [{ name: username, email: userEmail }, ...memberData];
-  const uniqueMembers = [...new Set(membersData)];
 
   if (!teamInfo) {
     teamData.push({
       id: uniqueId,
       name,
-      members: uniqueMembers,
+      members: membersData,
       projects: [],
       teamCreator: userEmail,
     });
@@ -51,7 +50,7 @@ export const saveTeamDataToDb = (name, memberData, userEmail, username) => {
       {
         id: uniqueId,
         name,
-        members: uniqueMembers,
+        members: membersData,
         projects: [],
         teamCreator: userEmail,
       },

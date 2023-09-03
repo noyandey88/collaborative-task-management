@@ -7,6 +7,7 @@ export default function ProjectData() {
   const { id } = useParams();
   const [project, setProject] = useState({});
   const { name, tasks, team } = project || {};
+  console.log('🚀 ~ file: ProjectData.jsx:10 ~ ProjectData ~ tasks:', tasks);
 
   useEffect(() => {
     const parsedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];

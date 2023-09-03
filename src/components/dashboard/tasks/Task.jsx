@@ -1,4 +1,9 @@
-export default function Task() {
+export default function Task({ task }) {
+  const {
+    taskName, assignee, dueDate, priority, status,
+  } = task || {};
+  console.log('🚀 ~ file: Task.jsx:5 ~ Task ~ status:', status);
+
   return (
     <tr>
       {/* checkbox */}
@@ -13,34 +18,26 @@ export default function Task() {
       {/* task name */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-6 py-3">
-          <span className="text-sm text-gray-600">Streamlab</span>
+          <span className="text-sm text-gray-600">{taskName}</span>
         </div>
       </td>
       {/* assignee */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-4 py-2">
-          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
-            <option defaultValue hidden>Select</option>
-            <option value="JM">John Mayer</option>
-            <option value="SRV">Stevie Ray Vaughn</option>
-            <option value="JH">Jimi Hendrix</option>
-            <option value="BBK">B.B King</option>
-            <option value="AK">Albert King</option>
-            <option value="BG">Buddy Guy</option>
-            <option value="EC">Eric Clapton</option>
-          </select>
+          {assignee?.name}
         </div>
       </td>
       {/* due data */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="text-center">
-          <input type="date" name="" id="" className="rounded-md border-primary" />
+          {/* <input type="date" name="" id="" className="rounded-md border-primary" /> */}
+          {dueDate}
         </div>
       </td>
       {/* priority */}
       <td className="h-px w-px whitespace-nowrap">
         <div>
-          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={priority}>
             <option defaultValue hidden>Select</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -51,7 +48,7 @@ export default function Task() {
       {/* status */}
       <td className="h-px w-px whitespace-nowrap">
         <div className="px-4 py-2">
-          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={status}>
             <option defaultValue hidden>Select</option>
             <option value="Pending">Pending</option>
             <option value="Inprogress">Inprogress</option>

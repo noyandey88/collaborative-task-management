@@ -1,6 +1,18 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Task from './Task';
 
 export default function Tasks() {
+  const { id } = useParams();
+  const [project, setProject] = useState({});
+  const { tasks } = project || {};
+
+  useEffect(() => {
+    const parsedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];
+    const filteredProject = parsedProjectData.find((p) => p?.id === id);
+    setProject(filteredProject);
+  }, [localStorage, id]);
+
   return (
     <table className="min-w-full divide-y divide-gray-200">
       <thead>
@@ -46,7 +58,7 @@ export default function Tasks() {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-        <Task />
+        {tasks?.map((task) => <Task key={task?.id} task={task} />)}
       </tbody>
     </table>
   );
