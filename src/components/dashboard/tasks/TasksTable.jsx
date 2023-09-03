@@ -1,6 +1,7 @@
+import TaskModal from '../../../pages/daashboard/projects/TaskModal';
 import Tasks from './Tasks';
 
-export default function TasksTable() {
+export default function TasksTable({ team, projectId }) {
   return (
     <div className="py-10 lg:py-14">
       {/* Card */}
@@ -10,10 +11,11 @@ export default function TasksTable() {
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
               {/* Header */}
               <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b">
-                <div>
+                <div className="flex items-center gap-x-2">
                   <h2 className="text-xl font-semibold text-gray-800">
                     Tasks
                   </h2>
+                  <TaskModal team={team} projectId={projectId} />
                 </div>
                 {/* filter */}
                 <div>
@@ -23,9 +25,6 @@ export default function TasksTable() {
                         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
                       </svg>
                       Filter
-                      <span className="inline-flex items-center gap-1.5 py-0.5 px-1.5 rounded-full text-xs font-medium border border-gray-300 text-gray-800">
-                        2
-                      </span>
                     </button>
                     <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden mt-2 divide-y divide-gray-200 min-w-[12rem] z-20 bg-white shadow-md rounded-lg" aria-labelledby="hs-as-table-table-filter-dropdown">
                       <div className="divide-y divide-gray-200">

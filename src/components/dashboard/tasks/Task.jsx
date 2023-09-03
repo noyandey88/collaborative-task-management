@@ -37,7 +37,7 @@ export default function Task({ task }) {
       {/* priority */}
       <td className="h-px w-px whitespace-nowrap">
         <div>
-          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={priority}>
+          <select name="HeadlineAct" id="HeadlineAct" className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={priority}>
             <option defaultValue hidden>Select</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -47,8 +47,8 @@ export default function Task({ task }) {
       </td>
       {/* status */}
       <td className="h-px w-px whitespace-nowrap">
-        <div className="px-4 py-2">
-          <select name="HeadlineAct" id="HeadlineAct" className="mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={status}>
+        <div className="px-3 py-2">
+          <select name="HeadlineAct" id="HeadlineAct" className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={status}>
             <option defaultValue hidden>Select</option>
             <option value="Pending">Pending</option>
             <option value="Inprogress">Inprogress</option>

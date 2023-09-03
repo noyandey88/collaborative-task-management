@@ -44,7 +44,7 @@ export default function ProjectData() {
               </div>
             </div>
           ) : (
-            <TasksTable />
+            <TasksTable team={team} projectId={id} />
           )
       }
     </section>

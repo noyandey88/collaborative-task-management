@@ -57,7 +57,7 @@ export default function Tasks() {
           </th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+      <tbody className="divide-y divide-gray-200">
         {tasks?.map((task) => <Task key={task?.id} task={task} />)}
       </tbody>
     </table>
