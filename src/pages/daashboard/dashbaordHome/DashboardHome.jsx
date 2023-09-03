@@ -10,10 +10,16 @@ export default function DashboardHome() {
   const greeting = getGreeting();
 
   // get the result of the task of current user
-  const tasksCount = projects.reduce((total, item) => {
+  const tasksCount = projects?.reduce((total, item) => {
     const assigneeTasks = item.tasks.filter((task) => task.assignee?.email === user?.email);
     return total + assigneeTasks.length;
   }, 0);
+
+  // get the result of the task of current user
+  const currentUserTasks = projects?.reduce((result, item) => {
+    const assigneeTasks = item.tasks.filter((task) => task.assignee?.email === user?.email);
+    return result.concat(assigneeTasks);
+  }, []);
 
   return (
     <section className="space-y-2">
@@ -37,6 +43,46 @@ export default function DashboardHome() {
             </span>
           </span>
         </div>
+      </div>
+      {/* tasks cards */}
+      <div className="py-10 lg:py-14">
+        <div className="mb-4">
+          <h2 className="text-dark font-bold">Tasks:</h2>
+        </div>
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
+          {/* Card */}
+          {
+            currentUserTasks?.map((task) => (
+              <div key={task?.id} className="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+                <div className="p-4 md:p-5">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      {/* task name */}
+                      <h3 className="group-hover:text-primary font-semibold text-dark">
+                        {task?.taskName}
+                      </h3>
+                      {/* task priority */}
+                      <p className="text-sm text-gray-500">
+                        Priority:
+                        {' '}
+                        <span className="text-primary">{task?.priority}</span>
+                      </p>
+                      {/* task due date */}
+                      <p className="text-sm text-gray-500">
+                        Due Date:
+                        {' '}
+                        {task?.dueDate}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+          {/* End Card */}
+        </div>
+        {/* End Grid */}
       </div>
     </section>
   );
