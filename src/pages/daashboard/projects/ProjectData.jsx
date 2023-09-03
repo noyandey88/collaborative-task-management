@@ -11,9 +11,9 @@ export default function ProjectData() {
   const { name, tasks, team } = project || {};
 
   useEffect(() => {
-    const filteredProject = projects.find((p) => p.id === id);
+    const filteredProject = projects?.find((p) => p.id === id);
     setProject(filteredProject);
-  }, [localStorage, id]);
+  }, [id]);
 
   return (
     <section>
@@ -29,23 +29,23 @@ export default function ProjectData() {
       </div>
       {/* tasks table */}
       {
-        tasks?.length !== 0
-          ? (
-            <TasksTable team={team} projectId={id} />
-          ) : (
-            <div className="flex justify-center items-center mt-10">
-              <div className="space-y-2 text-center">
-                <h2 className="font-semibold text-xl">
-                  No
-                  {' '}
-                  <span className="text-primary">Task</span>
-                  {' '}
-                  Found
-                </h2>
-                <TaskModal team={team} projectId={id} />
-              </div>
-            </div>
-          )
+       tasks && tasks.length !== 0
+         ? (
+           <TasksTable team={team} projectId={id} />
+         ) : (
+           <div className="flex justify-center items-center mt-10">
+             <div className="space-y-2 text-center">
+               <h2 className="font-semibold text-xl">
+                 No
+                 {' '}
+                 <span className="text-primary">Task</span>
+                 {' '}
+                 Found
+               </h2>
+               <TaskModal team={team} projectId={id} />
+             </div>
+           </div>
+         )
       }
     </section>
   );

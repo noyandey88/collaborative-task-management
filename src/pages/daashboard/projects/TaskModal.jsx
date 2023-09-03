@@ -5,8 +5,8 @@ import { toast } from 'react-hot-toast';
 import { StorageContext } from '../../../contexts/StorageProvider';
 import Button from '../../../ui/button/Button';
 
-export default function TaskModal({ team, projectId }) {
-  const { saveTaskDataToProjectDataDb, projects } = useContext(StorageContext);
+export default function TaskModal({ team, projectId, table }) {
+  const { saveTaskDataToProjectDataDb } = useContext(StorageContext);
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
     taskName: '',
@@ -32,17 +32,35 @@ export default function TaskModal({ team, projectId }) {
     saveTaskDataToProjectDataDb(projectId, taskData);
     toast.success('Task is Created Successfully');
     closeModal();
+    setInput({
+      taskName: '',
+      description: '',
+      assignee: '',
+      dueDate: '',
+      priority: '',
+    });
   };
 
   return (
     <>
       <div>
-        <Button onClick={openModal} className="flex items-center gap-x-2 ">
-          Add a task
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </Button>
+        {
+          table
+            ? (
+              <Button onClick={openModal} className="px-1 p-1 bg-transparent rounded-full text-dark border border-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </Button>
+            ) : (
+              <Button onClick={openModal} className="flex items-center gap-x-2 ">
+                Add a task
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </Button>
+            )
+        }
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

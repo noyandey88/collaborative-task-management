@@ -11,11 +11,11 @@ export default function TasksTable({ team, projectId }) {
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
               {/* Header */}
               <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b">
-                <div className="flex items-center gap-x-2">
+                <div className="flex items-center gap-x-4">
                   <h2 className="text-xl font-semibold text-gray-800">
                     Tasks
                   </h2>
-                  <TaskModal team={team} projectId={projectId} />
+                  <TaskModal team={team} projectId={projectId} table />
                 </div>
                 {/* sort and filter */}
                 <div className="flex items-center gap-x-2">
