@@ -6,7 +6,7 @@ import { StorageContext } from '../../../contexts/StorageProvider';
 import Button from '../../../ui/button/Button';
 
 export default function TaskModal({ team, projectId }) {
-  const { saveTaskDataToProjectDataDb } = useContext(StorageContext);
+  const { saveTaskDataToProjectDataDb, projects } = useContext(StorageContext);
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
     taskName: '',

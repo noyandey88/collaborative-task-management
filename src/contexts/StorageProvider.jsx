@@ -151,6 +151,7 @@ import {
   saveTeamDataToDb,
   saveUserDataToDb,
   updateTaskPriority,
+  updateTaskStatus,
   updateTaskToProjectInDb,
 } from '../db-api/db-api';
 import { AuthContext } from './AuthProvider';
@@ -249,6 +250,13 @@ export default function StorageProvider({ children }) {
     updateProjectData(updatedProjectData);
   };
 
+  // update a specific task data on a specific project
+  const updateProjectTaskStatus = (projectId, taskId, newStatus) => {
+    updateTaskStatus(projectId, taskId, newStatus);
+    const updatedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];
+    updateProjectData(updatedProjectData);
+  };
+
   const dbInfo = useMemo(() => ({
     dbUsers,
     loggedInUserInfo,
@@ -262,6 +270,7 @@ export default function StorageProvider({ children }) {
     projects,
     loggedInUserProjectsInfo,
     updateProjectTaskPriority,
+    updateProjectTaskStatus,
   }), [
     dbUsers,
     loggedInUserInfo,

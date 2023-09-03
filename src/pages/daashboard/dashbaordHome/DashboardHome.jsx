@@ -53,32 +53,39 @@ export default function DashboardHome() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Card */}
           {
-            currentUserTasks?.map((task) => (
-              <div key={task?.id} className="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
-                <div className="p-4 md:p-5">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      {/* task name */}
-                      <h3 className="group-hover:text-primary font-semibold text-dark">
-                        {task?.taskName}
-                      </h3>
-                      {/* task priority */}
-                      <p className="text-sm text-gray-500">
-                        Priority:
-                        {' '}
-                        <span className="text-primary">{task?.priority}</span>
-                      </p>
-                      {/* task due date */}
-                      <p className="text-sm text-gray-500">
-                        Due Date:
-                        {' '}
-                        {task?.dueDate}
-                      </p>
+            currentUserTasks?.length !== 0
+              ? (
+                currentUserTasks?.map((task) => (
+                  <div key={task?.id} className="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+                    <div className="p-4 md:p-5">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          {/* task name */}
+                          <h3 className="group-hover:text-primary font-semibold text-dark">
+                            {task?.taskName}
+                          </h3>
+                          {/* task priority */}
+                          <p className="text-sm text-gray-500">
+                            Priority:
+                            {' '}
+                            <span className="text-primary">{task?.priority}</span>
+                          </p>
+                          {/* task due date */}
+                          <p className="text-sm text-gray-500">
+                            Due Date:
+                            {' '}
+                            {task?.dueDate}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="text-primary font-medium">
+                  <h2>There is no Task available</h2>
                 </div>
-              </div>
-            ))
+              )
           }
           {/* End Card */}
         </div>
@@ -92,6 +99,35 @@ export default function DashboardHome() {
         {/* Grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Card */}
+          {
+            projects?.length !== 0
+              ? (
+                projects?.map((project) => (
+                  <div key={project?.id} className="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">
+                    <div className="p-4 md:p-5">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          {/* task name */}
+                          <h3 className="group-hover:text-primary font-semibold text-dark">
+                            {project?.name}
+                          </h3>
+                          {/* task priority */}
+                          <p className="text-sm text-gray-500">
+                            Creator:
+                            {' '}
+                            <span className="text-primary">{user?.displayName}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-primary font-medium">
+                  <h2>There is no Projects available</h2>
+                </div>
+              )
+          }
           {
             projects?.map((project) => (
               <div key={project?.id} className="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition">

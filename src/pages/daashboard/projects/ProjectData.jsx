@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TasksTable from '../../../components/dashboard/tasks/TasksTable';
+import { StorageContext } from '../../../contexts/StorageProvider';
 import TaskModal from './TaskModal';
 
 export default function ProjectData() {
   const { id } = useParams();
   const [project, setProject] = useState({});
+  const { projects } = useContext(StorageContext);
   const { name, tasks, team } = project || {};
 
   useEffect(() => {
-    const parsedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];
-    const filteredProject = parsedProjectData.find((p) => p.id === id);
+    const filteredProject = projects.find((p) => p.id === id);
     setProject(filteredProject);
   }, [localStorage, id]);
 
@@ -28,7 +29,7 @@ export default function ProjectData() {
       </div>
       {/* tasks table */}
       {
-        tasks?.length === 0
+        tasks?.length <= 0
           ? (
             <div className="flex justify-center items-center mt-10">
               <div className="space-y-2 text-center">
