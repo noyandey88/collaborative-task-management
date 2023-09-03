@@ -13,7 +13,7 @@ export default function ProjectData() {
   useEffect(() => {
     const filteredProject = projects?.find((p) => p.id === id);
     setProject(filteredProject);
-  }, [id]);
+  }, [id, projects]);
 
   return (
     <section>

@@ -30,6 +30,8 @@ export default function ProjectModal() {
     // update project info to team data
     updateProjectToTeam(parsedTeamInfo?.id, projectName);
     closeModal();
+    setProjectName('');
+    setTeamInfo('');
     toast.success('Project is added successfully');
   };
 
