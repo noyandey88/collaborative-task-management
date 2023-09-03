@@ -29,7 +29,7 @@ export default function Task({ task, index, projectId }) {
       {/* task name */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-2 py-3">
-          <span className="text-sm text-gray-600">{taskName}</span>
+          <span className={`text-sm text-primary ${status === 'Done' ? 'line-through' : null}`}>{taskName}</span>
         </div>
       </td>
       {/* assignee */}
@@ -41,7 +41,6 @@ export default function Task({ task, index, projectId }) {
       {/* due data */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="text-center">
-          {/* <input type="date" name="" id="" className="rounded-md border-primary" /> */}
           {dueDate}
         </div>
       </td>
@@ -68,7 +67,7 @@ export default function Task({ task, index, projectId }) {
           <select
             name="HeadlineAct"
             id="HeadlineAct"
-            className="w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+            className="min-w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
             onChange={handleStatusChange}
             value={status}
           >
@@ -79,6 +78,7 @@ export default function Task({ task, index, projectId }) {
           </select>
         </div>
       </td>
+      {/* details view button */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-2 py-2">
           <button type="button">
