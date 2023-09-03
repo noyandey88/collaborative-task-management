@@ -1,7 +1,10 @@
+import { useContext } from 'react';
+import { StorageContext } from '../../../contexts/StorageProvider';
 import TaskModal from '../../../pages/daashboard/projects/TaskModal';
 import Tasks from './Tasks';
 
 export default function TasksTable({ team, projectId }) {
+  const { filterTitle, setFilterTitle } = useContext(StorageContext);
   return (
     <div className="py-10 lg:py-14">
       {/* Card */}
@@ -20,70 +23,39 @@ export default function TasksTable({ team, projectId }) {
                 {/* sort and filter */}
                 <div className="flex items-center gap-x-2">
                   {/* sort */}
-                  <div className="hs-dropdown relative inline-block [--placement:bottom-right]" data-hs-dropdown-auto-close="inside">
-                    <button id="hs-as-table-table-filter-dropdown" type="button" className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm">
-                      <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                      </svg>
+                  <div>
+                    <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                       Sort
-                    </button>
-                    <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden mt-2 divide-y divide-gray-200 min-w-[12rem] z-20 bg-white shadow-md rounded-lg" aria-labelledby="hs-as-table-table-filter-dropdown">
-                      <div className="divide-y divide-gray-200">
-                        <label htmlFor="hs-as-filters-dropdown-frequency" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-frequency" defaultChecked />
-                          <span className="ml-3 text-sm text-gray-800">Frequency</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-status" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-status" defaultChecked />
-                          <span className="ml-3 text-sm text-gray-800">Status</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-created" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-created" />
-                          <span className="ml-3 text-sm text-gray-800">Created</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-due-date" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-due-date" />
-                          <span className="ml-3 text-sm text-gray-800">Due Date</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-amount" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-amount" />
-                          <span className="ml-3 text-sm text-gray-800">Amount</span>
-                        </label>
-                      </div>
-                    </div>
+                    </label>
+                    <select name="HeadlineAct" id="HeadlineAct" className="w-full mt-1 rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                      <option value>Please select</option>
+                      <option value="JM">John Mayer</option>
+                      <option value="SRV">Stevie Ray Vaughn</option>
+                      <option value="JH">Jimi Hendrix</option>
+                      <option value="BBK">B.B King</option>
+                      <option value="AK">Albert King</option>
+                      <option value="BG">Buddy Guy</option>
+                      <option value="EC">Eric Clapton</option>
+                    </select>
                   </div>
                   {/* filter */}
-                  <div className="hs-dropdown relative inline-block [--placement:bottom-right]" data-hs-dropdown-auto-close="inside">
-                    <button id="hs-as-table-table-filter-dropdown" type="button" className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm">
-                      <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                      </svg>
+                  <div>
+                    <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                       Filter
-                    </button>
-                    <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden mt-2 divide-y divide-gray-200 min-w-[12rem] z-20 bg-white shadow-md rounded-lg" aria-labelledby="hs-as-table-table-filter-dropdown">
-                      <div className="divide-y divide-gray-200">
-                        <label htmlFor="hs-as-filters-dropdown-frequency" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-frequency" defaultChecked />
-                          <span className="ml-3 text-sm text-gray-800">Frequency</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-status" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-status" defaultChecked />
-                          <span className="ml-3 text-sm text-gray-800">Status</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-created" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-created" />
-                          <span className="ml-3 text-sm text-gray-800">Created</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-due-date" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-due-date" />
-                          <span className="ml-3 text-sm text-gray-800">Due Date</span>
-                        </label>
-                        <label htmlFor="hs-as-filters-dropdown-amount" className="flex py-2.5 px-3">
-                          <input type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" id="hs-as-filters-dropdown-amount" />
-                          <span className="ml-3 text-sm text-gray-800">Amount</span>
-                        </label>
-                      </div>
-                    </div>
+                    </label>
+                    <select
+                      name="HeadlineAct"
+                      id="HeadlineAct"
+                      className="w-full mt-1 rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                      onChange={(e) => setFilterTitle(e.target.value)}
+                      value={filterTitle}
+                    >
+                      <option defaultValue hidden>Select</option>
+                      <option value="">All</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Inprogress">Inprogress</option>
+                      <option value="Done">Done</option>
+                    </select>
                   </div>
                 </div>
               </div>

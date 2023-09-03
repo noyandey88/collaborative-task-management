@@ -5,7 +5,7 @@ import Task from './Task';
 
 export default function Tasks() {
   const { id } = useParams();
-  const { projects } = useContext(StorageContext);
+  const { projects, filterTitle } = useContext(StorageContext);
   const [project, setProject] = useState({});
   const { tasks } = project || {};
 
@@ -13,6 +13,22 @@ export default function Tasks() {
     const filteredProject = projects?.find((p) => p?.id === id);
     setProject(filteredProject);
   }, [id, projects]);
+
+  // filter
+  const filterByStatus = (task) => {
+    switch (filterTitle) {
+      case 'Done':
+        return task?.status === 'Done';
+      case 'Inprogress':
+        return task?.status === 'Inprogress';
+      case 'Pending':
+        return task?.status === 'Pending';
+      case '':
+        return true;
+      default:
+        return true;
+    }
+  };
 
   return (
     <table className="min-w-full divide-y divide-gray-200">
@@ -66,7 +82,14 @@ export default function Tasks() {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {tasks?.map((task, index) => <Task key={task?.id} task={task} index={index} projectId={id} />)}
+        {tasks?.filter(filterByStatus)?.map((task, index) => (
+          <Task
+            key={task?.id}
+            task={task}
+            index={index}
+            projectId={id}
+          />
+        ))}
       </tbody>
     </table>
   );

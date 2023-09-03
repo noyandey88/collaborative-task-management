@@ -56,6 +56,7 @@ export default function TeamModal() {
     saveTeamToDB(teamName, filteredMembers, user?.email, user?.displayName);
     toast.success('Team Created Successfully');
     closeModal();
+    setTeamName('');
   };
 
   return (

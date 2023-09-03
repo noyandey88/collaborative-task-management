@@ -47,7 +47,7 @@ export default function DashboardHome() {
       {/* tasks cards */}
       <div className="pt-4 lg:pt-4">
         <div className="mb-4">
-          <h2 className="text-dark font-bold">Tasks:</h2>
+          <h2 className="text-dark font-bold">Tasks Summary:</h2>
         </div>
         {/* Grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
@@ -94,7 +94,7 @@ export default function DashboardHome() {
       {/* projects cards */}
       <div className="py-4 lg:py-4">
         <div className="mb-4">
-          <h2 className="text-dark font-bold">Projects:</h2>
+          <h2 className="text-dark font-bold">Projects Summary:</h2>
         </div>
         {/* Grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">

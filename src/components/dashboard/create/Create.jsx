@@ -1,7 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/20/solid';
 import Button from '../../../ui/button/Button';
 import ProjectModal from '../modals/projectModal/ProjectModal';
-import TaskModal from '../modals/taskModal/TaskModal';
 import TeamModal from '../modals/teamModal/TeamModal';
 
 export default function Create() {
@@ -12,7 +11,6 @@ export default function Create() {
         <PlusCircleIcon className="w-6 h-6" />
       </Button>
       <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 w-56 hidden z-10 mt-2 min-w-[15rem] bg-secondary shadow-md rounded-lg p-2" aria-labelledby="hs-dropdown-basic">
-        <TaskModal />
         <ProjectModal />
         <TeamModal />
       </div>
