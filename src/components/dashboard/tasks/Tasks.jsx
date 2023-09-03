@@ -55,6 +55,13 @@ export default function Tasks() {
               </span>
             </div>
           </th>
+          <th scope="col" className="px-6 py-3 text-left">
+            <div className="flex justify-center items-center gap-x-2">
+              <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                Details
+              </span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">

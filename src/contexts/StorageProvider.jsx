@@ -92,6 +92,8 @@ export default function StorageProvider({ children }) {
     updateProjectData(JSON.parse(localStorage.getItem('project-info')));
   };
 
+  // update a specific task data on a specific project
+
   const dbInfo = useMemo(() => ({
     dbUsers,
     loggedInUserInfo,
