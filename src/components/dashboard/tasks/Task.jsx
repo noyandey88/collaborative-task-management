@@ -5,15 +5,15 @@ import { updateTaskStatus } from '../../../db-api/db-api';
 export default function Task({ task, index, projectId }) {
   const [newStatus, setNewStatus] = useState('');
   const [newPriority, setNewPriority] = useState('');
-  const { updateProjectTaskPriority } = useContext(StorageContext);
+  const { updateProjectTaskPriority, projects } = useContext(StorageContext);
   const {
     id, taskName, assignee, dueDate, priority, status,
   } = task || {};
 
   const handlePriorityChange = (e) => {
     setNewPriority(e.target.value);
-    // updateTaskPriority(projectId, id, e.target.value);
     updateProjectTaskPriority(projectId, id, e.target.value);
+    console.log('🚀 ~ file: Task.jsx:9 ~ Task ~ projects:', projects);
   };
 
   const handleStatusChange = (e) => {
