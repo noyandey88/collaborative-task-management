@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
 import { StorageContext } from '../../../contexts/StorageProvider';
+import TaskView from './TaskView';
 
 export default function Task({ task, index, projectId }) {
   const [newStatus, setNewStatus] = useState('');
   const [newPriority, setNewPriority] = useState('');
-  const { updateProjectTaskPriority, updateProjectTaskStatus, projects } = useContext(StorageContext);
+  const { updateProjectTaskPriority, updateProjectTaskStatus } = useContext(StorageContext);
   const {
     id, taskName, assignee, dueDate, priority, status,
   } = task || {};
@@ -12,7 +13,6 @@ export default function Task({ task, index, projectId }) {
   const handlePriorityChange = (e) => {
     setNewPriority(e.target.value);
     updateProjectTaskPriority(projectId, id, e.target.value);
-    console.log('🚀 ~ file: Task.jsx:9 ~ Task ~ projects:', projects);
   };
 
   const handleStatusChange = (e) => {
@@ -83,12 +83,7 @@ export default function Task({ task, index, projectId }) {
       {/* details view button */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-2 py-2">
-          <button type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
+          <TaskView />
         </div>
       </td>
     </tr>
