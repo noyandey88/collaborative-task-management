@@ -5,7 +5,7 @@ export default function Trial() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-10 lg:py-40 bg-secondary">
+    <section id="trial" className="py-10 lg:py-40 bg-secondary">
       <div className="text-center space-y-4 container mx-auto px-2">
         <h1 className="text-4xl font-bold">
           Start Your

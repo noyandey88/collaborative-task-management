@@ -9,8 +9,8 @@ import Avatar from '../avatar/Avatar';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
-  { name: 'Organized', href: '/', current: false },
-  { name: 'Trial', href: '/', current: false },
+  { name: 'Organized', href: '#organized', current: false },
+  { name: 'Trial', href: '#trial', current: false },
 ];
 
 function classNames(...classes) {

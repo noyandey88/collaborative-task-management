@@ -1,6 +1,6 @@
 export default function GetOrganized() {
   return (
-    <div className="py-10 lg:py-14 container mx-auto px-2">
+    <div id="organized" className="py-10 lg:py-14 container mx-auto px-2 -scroll-mt-8">
       {/* Grid */}
       <div className="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
         <div>
