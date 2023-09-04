@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../ui/button/Button';
 
 export default function Hero() {
@@ -8,15 +8,15 @@ export default function Hero() {
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10 md:pb-24">
         {/* Announcement Banner */}
         <div className="flex justify-center">
-          <a className="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300 font-semibold" href="/">
-            Explore the Capital Product
+          <Link className="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300 font-semibold" to="/dashboard">
+            Explore our great product
             <span className="flex items-center gap-x-1">
               <span className="border-l border-gray-200 text-primary pl-2">Explore</span>
               <svg className="w-2.5 h-2.5 text-primary" width={16} height={16} viewBox="0 0 16 16" fill="none">
                 <path d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </span>
-          </a>
+          </Link>
         </div>
         {/* End Announcement Banner */}
         {/* Title */}
