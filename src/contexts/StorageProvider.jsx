@@ -27,6 +27,8 @@ export default function StorageProvider({ children }) {
 
   // filter task
   const [filterTitle, setFilterTitle] = useState('');
+  // sort task by due data
+  const [sortTitle, setSortTitle] = useState('');
 
   // useEffect for user data
   useEffect(() => {
@@ -116,6 +118,8 @@ export default function StorageProvider({ children }) {
     updateProjectTaskStatus,
     filterTitle,
     setFilterTitle,
+    sortTitle,
+    setSortTitle,
   }), [
     dbUsers,
     loggedInUserInfo,
@@ -124,6 +128,7 @@ export default function StorageProvider({ children }) {
     projects,
     loggedInUserProjectsInfo,
     filterTitle,
+    sortTitle,
   ]);
 
   return (

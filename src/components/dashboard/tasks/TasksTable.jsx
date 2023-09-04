@@ -5,6 +5,7 @@ import Tasks from './Tasks';
 
 export default function TasksTable({ team, projectId }) {
   const { filterTitle, setFilterTitle } = useContext(StorageContext);
+  const { sortTitle, setSortTitle } = useContext(StorageContext);
   return (
     <div className="py-10 lg:py-14">
       {/* Card */}
@@ -27,14 +28,33 @@ export default function TasksTable({ team, projectId }) {
                     <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                       <span className="text-primary">Sort</span>
                       {' '}
-                      by
+                      by Priority
                     </label>
                     <select name="HeadlineAct" id="HeadlineAct" className="w-full mt-1 rounded-lg border-gray-300 text-gray-700 sm:text-sm">
-                      <option defaultValue>Select</option>
-                      <option value="JM">John Mayer</option>
-                      <option value="SRV">Stevie Ray Vaughn</option>
-                      <option value="JH">Jimi Hendrix</option>
-                      <option value="BBK">B.B King</option>
+                      <option defaultValue hidden>Select</option>
+                      <option value="">Default</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
+                      <span className="text-primary">Sort</span>
+                      {' '}
+                      by Due Date
+                    </label>
+                    <select
+                      name="HeadlineAct"
+                      id="HeadlineAct"
+                      className="w-full mt-1 rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+                      onChange={(e) => setSortTitle(e.target.value)}
+                      value={sortTitle}
+                    >
+                      <option defaultValue hidden>Select</option>
+                      <option value="">Default</option>
+                      <option value="Ascending">Ascending</option>
+                      <option value="Descending">Descending</option>
                     </select>
                   </div>
                   {/* filter */}
@@ -42,7 +62,7 @@ export default function TasksTable({ team, projectId }) {
                     <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                       <span className="text-primary">Filter</span>
                       {' '}
-                      by
+                      by Status
                     </label>
                     <select
                       name="HeadlineAct"

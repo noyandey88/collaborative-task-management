@@ -5,7 +5,7 @@ import Teams from '../teams/Teams';
 
 export default function SidebarMenu() {
   return (
-    <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
+    <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap px-3" data-hs-accordion-always-open>
       <ul className="mt-6 space-y-2">
         <li>
           <Link to="/dashboard" className="flex items-center gap-x-2 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-primary">
@@ -63,13 +63,20 @@ export default function SidebarMenu() {
             <Teams />
           </details>
         </li>
-        <li>
+        {/* <li>
           <Link to="/" className="flex gap-x-2 items-center mt-10 justify-between rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-secondary hover:text-primary absolute bottom-1">
             <span>Back to Homepage</span>
             <ArrowUturnLeftIcon className="w-4 h-4" />
           </Link>
-        </li>
+        </li> */}
       </ul>
+      {/* home button */}
+      <div>
+        <Link to="/" className="flex gap-x-2 items-center mt-10 justify-between rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-secondary hover:text-primary">
+          <span>Back to Homepage</span>
+          <ArrowUturnLeftIcon className="w-4 h-4" />
+        </Link>
+      </div>
     </nav>
   );
 }

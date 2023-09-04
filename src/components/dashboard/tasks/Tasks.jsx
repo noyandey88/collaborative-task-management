@@ -5,7 +5,7 @@ import Task from './Task';
 
 export default function Tasks() {
   const { id } = useParams();
-  const { projects, filterTitle } = useContext(StorageContext);
+  const { projects, filterTitle, sortTitle } = useContext(StorageContext);
   const [project, setProject] = useState({});
   const { tasks } = project || {};
 
@@ -23,6 +23,19 @@ export default function Tasks() {
         return task?.status === 'Inprogress';
       case 'Pending':
         return task?.status === 'Pending';
+      case '':
+        return true;
+      default:
+        return true;
+    }
+  };
+
+  const sortByDueDate = (a, b) => {
+    switch (sortTitle) {
+      case 'Ascending':
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      case 'Descending':
+        return new Date(b.dueDate) - new Date(a.dueDate);
       case '':
         return true;
       default:
@@ -82,7 +95,7 @@ export default function Tasks() {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {tasks?.filter(filterByStatus)?.map((task, index) => (
+        {tasks?.sort(sortByDueDate)?.filter(filterByStatus)?.map((task, index) => (
           <Task
             key={task?.id}
             task={task}

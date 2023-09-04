@@ -141,7 +141,6 @@ export default function TeamModal() {
                         <Button
                           type="submit"
                           className="inline-flex justify-center rounded-md border border-transparent bg-secondary px-6 py-2 text-sm font-medium text-dark hover:bg-secondary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        // onClick={closeModal}
                         >
                           Create
                         </Button>
