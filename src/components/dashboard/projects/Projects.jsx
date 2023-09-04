@@ -18,9 +18,6 @@ export default function Projects() {
             </div>
           )
       }
-      {/* {
-        projects?.map((project) => <Project key={project.id} project={project} />)
-      } */}
     </ul>
   );
 }

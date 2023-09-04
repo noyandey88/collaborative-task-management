@@ -8,13 +8,17 @@ export default function TaskDelete({ taskId, projectId }) {
   const { deleteATaskFromProjectData } = useContext(StorageContext);
 
   function closeModal() {
-    deleteATaskFromProjectData(projectId, taskId);
     setIsOpen(false);
   }
 
   function openModal() {
     setIsOpen(true);
   }
+
+  const handleDelete = () => {
+    deleteATaskFromProjectData(projectId, taskId);
+    closeModal();
+  };
 
   return (
     <>
@@ -70,7 +74,7 @@ export default function TaskDelete({ taskId, projectId }) {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleDelete}
                     >
                       Delete
                     </button>

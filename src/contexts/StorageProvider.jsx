@@ -148,6 +148,7 @@ export default function StorageProvider({ children }) {
     loggedInUserProjectsInfo,
     filterTitle,
     sortTitle,
+    defaultUserData,
   ]);
 
   return (
