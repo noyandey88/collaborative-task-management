@@ -31,7 +31,7 @@ export default function Task({ task, index, projectId }) {
       {/* task name */}
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-2 py-3">
-          <span className={`text-sm text-primary ${status === 'Done' ? 'line-through' : null}`}>{taskName}</span>
+          <span className={`text-sm text-primary ${status === 'Completed' ? 'line-through' : null}`}>{taskName}</span>
         </div>
       </td>
       {/* assignee */}
@@ -76,7 +76,7 @@ export default function Task({ task, index, projectId }) {
             <option defaultValue hidden>Select</option>
             <option value="Pending">Pending</option>
             <option value="Inprogress">Inprogress</option>
-            <option value="Done">Done</option>
+            <option value="Completed">Completed</option>
           </select>
         </div>
       </td>

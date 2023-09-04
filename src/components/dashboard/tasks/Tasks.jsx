@@ -17,8 +17,8 @@ export default function Tasks() {
   // filter by task status
   const filterByStatus = (task) => {
     switch (filterTitle) {
-      case 'Done':
-        return task?.status === 'Done';
+      case 'Completed':
+        return task?.status === 'Completed';
       case 'Inprogress':
         return task?.status === 'Inprogress';
       case 'Pending':

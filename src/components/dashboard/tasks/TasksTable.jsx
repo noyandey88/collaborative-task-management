@@ -75,7 +75,7 @@ export default function TasksTable({ team, projectId }) {
                       <option value="">All</option>
                       <option value="Pending">Pending</option>
                       <option value="Inprogress">Inprogress</option>
-                      <option value="Done">Done</option>
+                      <option value="Completed">Completed</option>
                     </select>
                   </div>
                 </div>
