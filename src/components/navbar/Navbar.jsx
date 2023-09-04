@@ -9,6 +9,9 @@ import Avatar from '../avatar/Avatar';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
+];
+
+const navigationData = [
   { name: 'Organized', href: '#organized', current: false },
   { name: 'Trial', href: '#trial', current: false },
 ];
@@ -53,35 +56,35 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {
-                      !user?.uid
-                        ? navigation.filter((item) => item.name !== 'Dashboard')
-                          .map((item) => (
-                            <Link
-                              key={item.name}
-                              to={item.href}
-                              className={classNames(
-                                item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
-                                'rounded-md px-3 py-2 text-sm font-medium',
-                              )}
-                              aria-current={item.current ? 'page' : undefined}
-                            >
-                              {item.name}
-                            </Link>
-                          )) : (
-                          navigation.map((item) => (
-                            <Link
-                              key={item.name}
-                              to={item.href}
-                              className={classNames(
-                                item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
-                                'rounded-md px-3 py-2 text-sm font-medium',
-                              )}
-                              aria-current={item.current ? 'page' : undefined}
-                            >
-                              {item.name}
-                            </Link>
-                          ))
-                        )
+                      user?.uid ? navigation.map((item) => (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          className={classNames(
+                            item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
+                            'rounded-md px-3 py-2 text-sm font-medium',
+                          )}
+                          aria-current={item.current ? 'page' : undefined}
+                        >
+                          {item.name}
+                        </Link>
+                      )) : null
+                    }
+
+                    {
+                      navigationData.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
+                            'rounded-md px-3 py-2 text-sm font-medium',
+                          )}
+                          aria-current={item.current ? 'page' : undefined}
+                        >
+                          {item.name}
+                        </a>
+                      ))
                     }
                   </div>
                 </div>
