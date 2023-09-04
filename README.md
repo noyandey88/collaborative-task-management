@@ -7,7 +7,6 @@ Task Fusion is a powerful collaborative task management application designed to 
 - [Technologies Used](#technologies-used)
 - [UI Component Libraries](#ui-component-libraries)
 - [Notable Packages](#notable-packages)
-- [Sections](#sections)
 
 ## Features
 

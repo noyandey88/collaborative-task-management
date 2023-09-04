@@ -85,7 +85,7 @@ export default function Task({ task, index, projectId }) {
       <td className="h-px w-px whitespace-nowrap text-center">
         <div className="px-2 py-2 flex items-center justify-center gap-x-4">
           <TaskView task={task} />
-          <TaskDelete />
+          <TaskDelete taskId={id} />
         </div>
       </td>
     </tr>

@@ -2,7 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
-export default function TaskDelete() {
+export default function TaskDelete({ id }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
