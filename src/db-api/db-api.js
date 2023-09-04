@@ -143,3 +143,5 @@ export const updateTaskStatus = (projectId, taskId, newStatus) => {
     throw new Error('Element is not updatable');
   }
 };
+
+export const delete
