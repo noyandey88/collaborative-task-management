@@ -1,4 +1,4 @@
-# Task Fusion - Collaborative Task Management App
+## Task Fusion - Collaborative Task Management App
 
 Task Fusion is a powerful collaborative task management application designed to help teams and individuals efficiently organize and track their tasks and projects. With a user-friendly interface and robust features, Task Fusion simplifies task management and enhances productivity.
 
@@ -32,6 +32,28 @@ Our app boasts a wide array of features designed to streamline your task managem
 - **Your Security Matters:** Rest easy knowing your data is protected with secure Firebase authentication.
 
 - **Smart Data Handling:** We utilize Local Storage for seamless task and project data management.
+
+## Technologies Used
+
+The following technologies were used to develop this web application:
+
+- **React**: A popular JavaScript library for building user interfaces, providing a robust and efficient framework for developing interactive web applications.
+
+- **Firebase**: A comprehensive platform provided by Google for building web and mobile applications. It offers services such as authentication, real-time database, storage, and hosting.
+
+- **Tailwind CSS**: A highly customizable CSS framework that provides a set of utility classes, allowing for rapid and flexible styling of user interfaces.
+
+- **React Router**: A popular routing library for React applications, enabling dynamic routing and navigation between different components and pages.
+
+## UI Component Libraries
+
+The application leverages the following UI component libraries to enhance the user interface:
+
+- **Headless UI**: Empowers customization of accessible and unstyled UI components, giving developers to complete control over the look and feel of your application's user interface.
+
+- **Preline UI**: A minimalist UI component library that goes beyond aesthetics. Preline UI is all about clean lines and efficient layouts, creating an interface that not only looks great but also maximizes user engagement and content consumption.
+
+These libraries collectively contribute to a visually appealing and user-friendly interface, enhancing the overall user experience.
 
 ## Notable Packages
 
