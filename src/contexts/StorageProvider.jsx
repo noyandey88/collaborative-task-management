@@ -1,6 +1,7 @@
 import React, {
   createContext, useContext, useEffect, useMemo, useState,
 } from 'react';
+import defaultUserData from '../data/data';
 import {
   deleteATask,
   saveProjectToDb,
@@ -10,6 +11,7 @@ import {
   updateTaskStatus,
   updateTaskToProjectInDb,
 } from '../db-api/db-api';
+import { getDataFromLocalStorage } from '../lib/utils';
 import { AuthContext } from './AuthProvider';
 
 export const StorageContext = createContext();
@@ -109,6 +111,14 @@ export default function StorageProvider({ children }) {
     const updatedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];
     updateProjectData(updatedProjectData);
   };
+
+  useEffect(() => {
+    const userData = getDataFromLocalStorage('user-info') || [];
+    if (!userData) {
+      const jsonString = JSON.stringify(defaultUserData);
+      localStorage.setItem('user-info', jsonString);
+    }
+  }, []);
 
   const dbInfo = useMemo(() => ({
     dbUsers,

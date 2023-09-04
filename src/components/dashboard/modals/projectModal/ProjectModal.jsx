@@ -7,7 +7,7 @@ import { StorageContext } from '../../../../contexts/StorageProvider';
 import { updateProjectToTeam } from '../../../../db-api/db-api';
 import Button from '../../../../ui/button/Button';
 
-export default function ProjectModal() {
+export default function ProjectModal({ list }) {
   const [isOpen, setIsOpen] = useState(false);
   const { loggedInUserTeamInfo, saveProjectsToDB } = useContext(StorageContext);
   const [projectName, setProjectName] = useState('');
@@ -38,9 +38,17 @@ export default function ProjectModal() {
   return (
     <>
       <div>
-        <button onClick={openModal} type="button" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-primary hover:text-secondary focus:ring-2 focus:ring-dark w-full">
-          Create Project
-        </button>
+        {
+          list
+            ? (
+              <Button onClick={openModal} className="bg-transparent border border-secondary text-secondary py-1">Create a Project</Button>
+            ) : (
+              <button onClick={openModal} type="button" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-primary hover:text-secondary focus:ring-2 focus:ring-dark w-full">
+                Create Project
+              </button>
+            )
+        }
+
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

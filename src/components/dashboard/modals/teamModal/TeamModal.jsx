@@ -7,7 +7,7 @@ import { AuthContext } from '../../../../contexts/AuthProvider';
 import { StorageContext } from '../../../../contexts/StorageProvider';
 import Button from '../../../../ui/button/Button';
 
-export default function TeamModal() {
+export default function TeamModal({ list }) {
   const [isOpen, setIsOpen] = useState(false);
   const { dbUsers, saveTeamToDB } = useContext(StorageContext);
   const [members, setMembers] = useState([]);
@@ -62,9 +62,17 @@ export default function TeamModal() {
   return (
     <>
       <div>
-        <button onClick={openModal} type="button" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-primary hover:text-secondary focus:ring-2 focus:ring-dark w-full">
-          Create Team
-        </button>
+        {
+          list
+            ? (
+              <Button onClick={openModal} className="bg-transparent border border-secondary text-secondary py-1">Create a Team</Button>
+            )
+            : (
+              <button onClick={openModal} type="button" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-primary hover:text-secondary focus:ring-2 focus:ring-dark w-full">
+                Create Team
+              </button>
+            )
+        }
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

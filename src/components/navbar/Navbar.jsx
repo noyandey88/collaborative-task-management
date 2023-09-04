@@ -69,9 +69,9 @@ export default function Navbar() {
                             </Link>
                           )) : (
                           navigation.map((item) => (
-                            <a
+                            <Link
                               key={item.name}
-                              href={item.href}
+                              to={item.href}
                               className={classNames(
                                 item.current ? 'bg-secondary text-primary' : 'text-secondary hover:bg-secondary hover:text-primary',
                                 'rounded-md px-3 py-2 text-sm font-medium',
@@ -79,7 +79,7 @@ export default function Navbar() {
                               aria-current={item.current ? 'page' : undefined}
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           ))
                         )
                     }
