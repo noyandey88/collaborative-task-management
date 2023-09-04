@@ -64,7 +64,7 @@ export default function SidebarMenu() {
           </details>
         </li>
         <li>
-          <Link to="/" className="flex gap-x-2 items-center mt-10 justify-between rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-secondary hover:text-primary absolute bottom-4">
+          <Link to="/" className="flex gap-x-2 items-center mt-10 justify-between rounded-lg px-4 py-2 text-sm font-medium text-white hover:bg-secondary hover:text-primary absolute bottom-1">
             <span>Back to Homepage</span>
             <ArrowUturnLeftIcon className="w-4 h-4" />
           </Link>

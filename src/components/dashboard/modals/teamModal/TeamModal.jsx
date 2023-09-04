@@ -92,7 +92,7 @@ export default function TeamModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all overflow-y-scroll hide-scrollbar">
+                <Dialog.Panel className="w-full max-w-2xl transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   {/* modal title */}
                   <Dialog.Title
                     as="h3"
@@ -125,15 +125,17 @@ export default function TeamModal() {
                         <label htmlFor="HeadlineAct" className="block text-sm font-medium text-gray-900">
                           Select Members
                         </label>
-                        <AsyncSelect
-                          isMulti
-                          cacheOptions
-                          defaultOptions
-                          loadOptions={promiseOptions}
-                          onChange={handleChange}
-                          className="absolute z-30"
-                          required
-                        />
+                        <div>
+                          <AsyncSelect
+                            isMulti
+                            cacheOptions
+                            defaultOptions
+                            loadOptions={promiseOptions}
+                            onChange={handleChange}
+                            required
+                            menuPosition="absolute"
+                          />
+                        </div>
                       </div>
                       <div>
                         <Button
