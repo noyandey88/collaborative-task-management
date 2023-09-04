@@ -10,7 +10,7 @@ Task Fusion is a powerful collaborative task management application designed to 
 
 ## Features
 
-Our app boasts a wide array of features designed to streamline your task management:
+The app boasts a wide array of features designed to streamline your task management:
 
 - **Effortless Task Management:** Seamlessly create, edit, and delete tasks to keep your to-do list in check.
 

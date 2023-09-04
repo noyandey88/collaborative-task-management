@@ -2,6 +2,7 @@ import React, {
   createContext, useContext, useEffect, useMemo, useState,
 } from 'react';
 import {
+  deleteATask,
   saveProjectToDb,
   saveTeamDataToDb,
   saveUserDataToDb,
@@ -102,6 +103,13 @@ export default function StorageProvider({ children }) {
     updateProjectData(updatedProjectData);
   };
 
+  // delete a specific task from project data
+  const deleteATaskFromProjectData = (projectId, taskId) => {
+    deleteATask(projectId, taskId);
+    const updatedProjectData = JSON.parse(localStorage.getItem('project-info')) || [];
+    updateProjectData(updatedProjectData);
+  };
+
   const dbInfo = useMemo(() => ({
     dbUsers,
     loggedInUserInfo,
@@ -120,6 +128,7 @@ export default function StorageProvider({ children }) {
     setFilterTitle,
     sortTitle,
     setSortTitle,
+    deleteATaskFromProjectData,
   }), [
     dbUsers,
     loggedInUserInfo,

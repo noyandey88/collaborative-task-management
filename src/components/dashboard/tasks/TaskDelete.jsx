@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
+import { StorageContext } from '../../../contexts/StorageProvider';
 
-export default function TaskDelete({ id }) {
+export default function TaskDelete({ taskId, projectId }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { deleteATaskFromProjectData } = useContext(StorageContext);
 
   function closeModal() {
+    deleteATaskFromProjectData(projectId, taskId);
     setIsOpen(false);
   }
 

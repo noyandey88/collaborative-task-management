@@ -144,4 +144,24 @@ export const updateTaskStatus = (projectId, taskId, newStatus) => {
   }
 };
 
-export const delete
+// delete a certain task from a certain project
+export const deleteATask = (projectId, taskId) => {
+  const projectInfo = getDataFromLocalStorage('project-info') || [];
+  const desiredProject = projectInfo?.find((project) => project.id === projectId);
+  const { tasks } = desiredProject || {};
+
+  const elementToDelete = tasks?.findIndex((task) => task?.id === taskId);
+  if (elementToDelete !== -1) {
+    // Remove the task from the tasks array
+    tasks.splice(elementToDelete, 1);
+
+    // Update the project with the modified tasks
+    desiredProject.tasks = tasks;
+
+    // Update the projectInfo in Local Storage
+    projectInfo[elementToDelete] = desiredProject;
+    localStorage.setItem('project-info', JSON.stringify(projectInfo));
+  } else {
+    throw new Error('Element is not deletable');
+  }
+};
