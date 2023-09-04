@@ -29,7 +29,7 @@ Our app boasts a wide array of features designed to streamline your task managem
 
 - **Find What You Need:** Easily locate tasks with powerful search, sort and filtering options.
 
-- **Your Security Matters:** Rest easy knowing your data is protected with secure Firebase authentication.
+- **Security Matters:** Rest easy knowing your data is protected with secure Firebase authentication.
 
 - **Smart Data Handling:** We utilize Local Storage for seamless task and project data management.
 
