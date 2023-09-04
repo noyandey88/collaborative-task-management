@@ -88,7 +88,7 @@ export default function Tasks() {
           <th scope="col" className="px-6 py-3 text-left">
             <div className="flex justify-center items-center gap-x-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                Details
+                Action
               </span>
             </div>
           </th>

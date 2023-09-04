@@ -2,6 +2,13 @@
 
 Task Fusion is a powerful collaborative task management application designed to help teams and individuals efficiently organize and track their tasks and projects. With a user-friendly interface and robust features, Task Fusion simplifies task management and enhances productivity.
 
+## Table of Contents
+
+- [Technologies Used](#technologies-used)
+- [UI Component Libraries](#ui-component-libraries)
+- [Notable Packages](#notable-packages)
+- [Sections](#sections)
+
 ## Features
 
 - **Task Management:** Create, edit, and delete tasks with ease.
@@ -15,10 +22,3 @@ Task Fusion is a powerful collaborative task management application designed to 
 - **Search and Filters:** Easily find tasks with search and filtering options.
 - **User Authentication:** Securely authenticate using Firebase authentication.
 - **Data Storage:** Utilizes Local Storage for task and project data.
-
-## Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/task-fusion.git
