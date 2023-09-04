@@ -18,6 +18,13 @@ export default function TaskModal({ team, projectId, table }) {
   });
 
   function closeModal() {
+    setInput({
+      taskName: '',
+      description: '',
+      assignee: '',
+      dueDate: '',
+      priority: '',
+    });
     setIsOpen(false);
   }
 
